@@ -1,0 +1,10 @@
+project:
+  type: website
+  output-dir: docs
+
+website:
+  title: "INAB In-House Analysis"
+  navbar:
+    left:
+      - text: Home
+        href: index.qmd
