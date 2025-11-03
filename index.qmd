@@ -1,12 +1,12 @@
 ---
-title: "INAB in-house analysis"
+title: "INAB in-house analyses"
 format: html
 editor: visual
 ---
 
 ## Introduction
 
-Welcome to the **INAB In-House Analysis** guide.
+Welcome to the **INAB In-House Analyses** guide.
 
 This page provides internal documentation for performing standard bioinformatics analyses at the lab, including setup, data preprocessing, and downstream workflows.
 
