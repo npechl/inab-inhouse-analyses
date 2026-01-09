@@ -14,3 +14,28 @@ website:
             href: qmd/data_cleaning.qmd
           - text: Unix Commands
             href: qmd/unix.qmd
+      - text: Manuals for analysis
+        menu:
+          - text: bcl convert
+            href: qmd/bcl_convert.qmd
+          - text: bases2fastq
+            href: qmd/bases2fastq.qmd
+          - text: fastqc
+            href: qmd/fastqc.qmd
+          - text: Merge lanes
+            href: qmd/merge_lanes.qmd
+          - text: RNAseq analysis
+            href: qmd/rnaseq.qmd
+          - text: ENA
+            href: qmd/ena.qmd
+        
+        
+            
+  page-footer: 
+    border: true
+    left: "This page is built with [Quarto](https://quarto.org/)"
+    right: "[License](https://github.com/natanast/inab-inhouse-analyses/blob/main/LICENSE)"
+    
+format:
+  html:
+    theme: [morph, sass/theme-light.scss]

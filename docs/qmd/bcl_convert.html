@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Basic Unix Commands – INAB In-House Analysis</title>
+<title>Manuals – INAB In-House Analysis</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -40,7 +40,7 @@ ul.task-list li input[type="checkbox"] {
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-dec198a301aebdaa1d34cea4f908b750.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-7b24b5a7a5ceaea606057c59d6d9f3e3.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -116,15 +116,15 @@ ul.task-list li input[type="checkbox"] {
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-manuals-for-analysis">    
         <li>
-    <a class="dropdown-item" href="../qmd/bcl_convert.qmd">
+    <a class="dropdown-item" href="../qmd/bcl_convert.html">
  <span class="dropdown-text">bcl convert</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../qmd/bases2fastq.qmd">
+    <a class="dropdown-item" href="../qmd/bases2fastq.html">
  <span class="dropdown-text">bases2fastq</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../qmd/fastqc.qmd">
+    <a class="dropdown-item" href="../qmd/fastqc.html">
  <span class="dropdown-text">fastqc</span></a>
   </li>  
         <li>
@@ -132,7 +132,7 @@ ul.task-list li input[type="checkbox"] {
  <span class="dropdown-text">Merge lanes</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../qmd/rnaseq.qmd">
+    <a class="dropdown-item" href="../qmd/rnaseq.html">
  <span class="dropdown-text">RNAseq analysis</span></a>
   </li>  
         <li>
@@ -158,7 +158,7 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Basic Unix Commands</h1>
+<h1 class="title">Manuals</h1>
 </div>
 
 
@@ -175,63 +175,8 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="why-unix" class="level2">
-<h2 class="anchored" data-anchor-id="why-unix">Why Unix?</h2>
-<p>Most bioinformatics tools run in a <strong>terminal</strong>, not a graphical program.<br>
-Unix commands let you:</p>
-<ul>
-<li><p>move around folders</p></li>
-<li><p>list and inspect files</p></li>
-<li><p>run analysis programs</p></li>
-</ul>
-</section>
-<section id="navigation-where-am-i" class="level2">
-<h2 class="anchored" data-anchor-id="navigation-where-am-i">Navigation (Where am I?)</h2>
-<p>Before you can analyze data, you must know how to move around the folders (directories).</p>
-<ul>
-<li><code>pwd</code> (Print Working Directory): Shows your current location.</li>
-<li><code>ls</code> (List): Shows files in the current folder.</li>
-<li><code>cd folder/</code> (Change Directory): Move into a folder.</li>
-<li><code>cd ..</code>: Move one level up.</li>
-<li><code>cd ~</code>: Go to your home directory.</li>
-<li><code>mkdir name</code> (Make Directory): Create a new folder.</li>
-</ul>
-</section>
-<section id="copy-and-move-files" class="level2">
-<h2 class="anchored" data-anchor-id="copy-and-move-files">Copy and move files</h2>
-<ul>
-<li><code>cp file folder/</code>: Copy file from the first argument (source) to the last (destination).</li>
-<li><code>mv file folder/</code>: Move file from the first argument (source) to the last (destination).</li>
-<li><code>rm file</code>: Remove file. <strong>Caution</strong>: There is no “Trash Can”, Removed files are <strong>gone</strong>.</li>
-</ul>
-</section>
-<section id="inspecting-files" class="level2">
-<h2 class="anchored" data-anchor-id="inspecting-files">Inspecting Files</h2>
-<p><strong>Never</strong> open a ~10GB FASTQ file in a text editor like Word or Notepad. It will crash. Use these instead:</p>
-<ul>
-<li><code>head -n 20 file.txt</code>: See the first 20 lines.</li>
-<li><code>tail -n 20 file.txt</code>: See the last 20 lines (useful for checking if a log file finished correctly).</li>
-</ul>
-</section>
-<section id="working-with-compressed-data" class="level2">
-<h2 class="anchored" data-anchor-id="working-with-compressed-data">Working with Compressed Data</h2>
-<p>Bioinformatics data is almost always compressed (<code>.gz</code>) to save space.</p>
-<ul>
-<li><code>zcat name.fastq.gz | head</code>: View the top of a compressed fastq file.</li>
-<li><code>gzip file</code>: Compresses a file and adds a <code>.gz</code> extension.</li>
-<li><code>gunzip file.gz</code>: Decompresses the file.</li>
-</ul>
-</section>
-<section id="counting-and-searching" class="level2">
-<h2 class="anchored" data-anchor-id="counting-and-searching">Counting and Searching</h2>
-<ul>
-<li><code>wc -l file.txt</code>: count lines.</li>
-<li><code>grep "searchterm" file.txt</code>: find lines containing a word.</li>
-<li><code>grep -c "^@" file.fastq</code>: Count how many sequence headers (starting with <code>@</code>) are in a file.</li>
-</ul>
 
 
-</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">

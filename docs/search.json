@@ -2,16 +2,16 @@
   {
     "objectID": "index.html",
     "href": "index.html",
-    "title": "INAB in-house analyses",
+    "title": "Welcome",
     "section": "",
-    "text": "Welcome to the INAB In-House Analyses guide.\nThis page provides internal documentation for performing standard bioinformatics analyses at the lab, including setup, data preprocessing, and downstream workflows.\n\nNote: This document is for internal use only."
+    "text": "Welcome to the INAB In-House Analyses guide."
   },
   {
     "objectID": "index.html#introduction",
     "href": "index.html#introduction",
-    "title": "INAB in-house analyses",
-    "section": "",
-    "text": "Welcome to the INAB In-House Analyses guide.\nThis page provides internal documentation for performing standard bioinformatics analyses at the lab, including setup, data preprocessing, and downstream workflows.\n\nNote: This document is for internal use only."
+    "title": "Welcome",
+    "section": "Introduction",
+    "text": "Introduction\nThis page provides internal documentation for performing standard bioinformatics analyses at the lab, including setup, data preprocessing, and downstream workflows.\n\nNote: This document is for internal use only."
   },
   {
     "objectID": "index.html#authors",
@@ -114,7 +114,7 @@
   {
     "objectID": "index.html#author",
     "href": "index.html#author",
-    "title": "INAB in-house analyses",
+    "title": "Welcome",
     "section": "Author",
     "text": "Author\n Natasa Anastasiadou"
   },
@@ -142,8 +142,22 @@
   {
     "objectID": "index.html#getting-started",
     "href": "index.html#getting-started",
-    "title": "INAB in-house analyses",
+    "title": "Welcome",
     "section": "Getting Started",
-    "text": "Getting Started\nThe goal of this guide is to bridge the gap between wet-lab experiments and dry-lab results.\nYou will learn:\n\nhow to prepare your data correctly\nhow to use basic Unix commands\nhow to run analysis\n\n\nYour Roadmap\n\nData & Metadata: Learn the “Golden Rules” of file naming and organization.\nUnix Commands: Basic commands to navigate folders, inspect files, and prepare data for analysis.\nAnalysis Pipelines: Standardized workflows for INAB projects."
+    "text": "Getting Started\nThe goal of this guide is to bridge the gap between wet-lab experiments and dry-lab results.\nYou will learn:\n\nhow to prepare your data correctly\nhow to use basic Unix commands\nhow to run analysis"
+  },
+  {
+    "objectID": "index.html#your-roadmap",
+    "href": "index.html#your-roadmap",
+    "title": "Welcome",
+    "section": "Your Roadmap",
+    "text": "Your Roadmap\n\nData & Metadata: Learn the “Golden Rules” of file naming and organization.\nUnix Commands: Basic commands to navigate folders, inspect files, and prepare data for analysis.\nAnalysis Pipelines: Standardized workflows for INAB projects."
+  },
+  {
+    "objectID": "index.html#contributing",
+    "href": "index.html#contributing",
+    "title": "Welcome",
+    "section": "Contributing",
+    "text": "Contributing\nYour input is invaluable - whether it’s suggesting a new chart/analysis or reporting a bug, we welcome and greatly appreciate your feedback!\nFeel free to open a GitHub issue or contact us via inab.bioinformatics@lists.certh.gr."
   }
 ]

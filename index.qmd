@@ -1,12 +1,12 @@
 ---
-title: "INAB in-house analyses"
+title: "Welcome"
 format: html
 editor: visual
 ---
 
-## Introduction
+Welcome to the `INAB In-House Analyses` guide.
 
-Welcome to the **INAB In-House Analyses** guide.
+## Introduction
 
 This page provides internal documentation for performing standard bioinformatics analyses at the lab, including setup, data preprocessing, and downstream workflows.
 
@@ -22,11 +22,18 @@ You will learn:
 -   how to use basic Unix commands
 -   how to run analysis
 
-### Your Roadmap
+## Your Roadmap
 
 1.  [**Data & Metadata**](qmd/data_cleaning.qmd)**:** Learn the "Golden Rules" of file naming and organization.
 2.  [**Unix Commands**](qmd/unix.qmd)**:** Basic commands to navigate folders, inspect files, and prepare data for analysis.
 3.  [**Analysis Pipelines**](qmd/analysis.qmd)**:** Standardized workflows for INAB projects.
+
+## Contributing
+
+Your input is invaluable - whether it's suggesting a new chart/analysis or reporting a bug, we welcome and greatly appreciate your feedback! 
+
+Feel free to open a [GitHub issue](https://github.com/natanast/immunovisual/issues) or contact us via `inab.bioinformatics@lists.certh.gr`.
+
 
 ## Author
 
