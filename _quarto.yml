@@ -9,7 +9,7 @@ website:
       - text: Home
         href: index.qmd
       - text: Data & Metadata
-        href: qmd/data.qmd
+        href: qmd/data_cleaning.qmd
       - text: Data Analytics
         href: qmd/data_analytics.qmd
       - text: Unix Commands

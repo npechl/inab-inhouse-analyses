@@ -40,5 +40,12 @@
     "title": "Data & Metadata",
     "section": "❌ Common Naming Problems",
     "text": "❌ Common Naming Problems\nList of common errors found in metadata:\n\nDuplicate sample names (e.g., sample1 appearing twice)\nGreek characters (α, β, Α, Τ)\nSpaces in names (Sample 1, Control rep 2)\nSpecial characters (!, %, @, #, (, ), /)\nDifferent names for the same sample (CTRL1, Ctrl1, control_1)"
+  },
+  {
+    "objectID": "qmd/data.html#the-correct-naming-rules",
+    "href": "qmd/data.html#the-correct-naming-rules",
+    "title": "Data & Metadata",
+    "section": "✅ The Correct Naming Rules",
+    "text": "✅ The Correct Naming Rules\nSample names MUST:"
   }
 ]
