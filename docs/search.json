@@ -166,5 +166,33 @@
     "title": "Data & Metadata",
     "section": "📄 Project Documentation (The README file)",
     "text": "📄 Project Documentation (The README file)\nStandardized names are only useful if we know the context of the project. To prevent the loss of critical project details (who did what a year later), every project folder MUST contain a README file.\n\nRecommended Template\nCreate a file named README.txt in your main project folder and use this structure:\nProject: Short Title\nProject owner: Name\nBioinformatician: Name\nDate Started: YYYY-MM-DD\nStatus: In Progress / Completed / Archived\nExperimental Details: A brief description with the contex of the project (e.g. Comparisons, Groups)"
+  },
+  {
+    "objectID": "qmd/fastqc.html",
+    "href": "qmd/fastqc.html",
+    "title": "fastqc analysis",
+    "section": "",
+    "text": "Log in to the appropriate server:\no 160.40.71.4\no 160.40.71.6\nIdentify where your NGS results (.fastq files) are located:\no e.g., /mnt/new_home/stamatopoulos_research/2025_05_21_ERIC_study\nMove to the precmed working directory:\no cd /work/precmed/varCall/\nCreate a new analysis directory:\no mkdir run-2025-05-22-fastqc\nRun the fastqc (you have to update with the right path to your fastq files):\nfastqc /mnt/new_home/stamatopoulos_research/2025_05_21_ERIC_study/*.fastq.gz\n-o run-2025-05-22-fastqc/"
+  },
+  {
+    "objectID": "qmd/fastqc.html#how-to-run-fastqc",
+    "href": "qmd/fastqc.html#how-to-run-fastqc",
+    "title": "fastqc analysis in the computational infrastructure of INAB",
+    "section": "",
+    "text": "Steps to run fastqc analysis\n\nLog in to the appropriate server:\no 160.40.71.4\no 160.40.71.6\nIdentify where your NGS results (.fastq files) are located:\no e.g., /mnt/new_home/stamatopoulos_research/2025_05_21_ERIC_study\nMove to the precmed working directory:\no cd /work/precmed/varCall/\nCreate a new analysis directory:\no mkdir run-2025-05-22-fastqc\nRun the fastqc (you have to update with the right path to your fastq files):\nfastqc /mnt/new_home/stamatopoulos_research/2025_05_21_ERIC_study/*.fastq.gz\n-o run-2025-05-22-fastqc/"
+  },
+  {
+    "objectID": "qmd/fastqc.html#how-to-run-fastqc-in-the-computational-infrastructure-of-inab",
+    "href": "qmd/fastqc.html#how-to-run-fastqc-in-the-computational-infrastructure-of-inab",
+    "title": "fastqc analysis",
+    "section": "",
+    "text": "Log in to the appropriate server:\no 160.40.71.4\no 160.40.71.6\nIdentify where your NGS results (.fastq files) are located:\no e.g., /mnt/new_home/stamatopoulos_research/2025_05_21_ERIC_study\nMove to the precmed working directory:\no cd /work/precmed/varCall/\nCreate a new analysis directory:\no mkdir run-2025-05-22-fastqc\nRun the fastqc (you have to update with the right path to your fastq files):\nfastqc /mnt/new_home/stamatopoulos_research/2025_05_21_ERIC_study/*.fastq.gz\n-o run-2025-05-22-fastqc/"
+  },
+  {
+    "objectID": "qmd/fastqc.html#section",
+    "href": "qmd/fastqc.html#section",
+    "title": "fastqc analysis",
+    "section": "",
+    "text": "Steps to run fastqc analysis:\n\nLog in to the appropriate server:\no 160.40.71.4\no 160.40.71.6\nIdentify where your NGS results (.fastq files) are located:\no e.g., /mnt/new_home/stamatopoulos_research/2025_05_21_ERIC_study\nMove to the precmed working directory:\no cd /work/precmed/varCall/\nCreate a new analysis directory:\no mkdir run-2025-05-22-fastqc\nRun the fastqc (you have to update with the right path to your fastq files):\nfastqc /mnt/new_home/stamatopoulos_research/2025_05_21_ERIC_study/*.fastq.gz\n-o run-2025-05-22-fastqc/"
   }
 ]

@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Manuals – INAB In-House Analysis</title>
+<title>fastqc analysis – INAB In-House Analysis</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -40,7 +40,7 @@ ul.task-list li input[type="checkbox"] {
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-dec198a301aebdaa1d34cea4f908b750.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-7b24b5a7a5ceaea606057c59d6d9f3e3.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -158,7 +158,7 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Manuals</h1>
+<h1 class="title">fastqc analysis</h1>
 </div>
 
 
@@ -175,8 +175,28 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
+<section id="how-to-run-fastqc-in-the-computational-infrastructure-of-inab" class="level2">
+<h2 class="anchored" data-anchor-id="how-to-run-fastqc-in-the-computational-infrastructure-of-inab">How to run <strong>fastqc</strong> in the computational infrastructure of INAB</h2>
+<section id="steps-to-run-fastqc-analysis" class="level4">
+<h4 class="anchored" data-anchor-id="steps-to-run-fastqc-analysis">Steps to run fastqc analysis:</h4>
+<ol type="1">
+<li><p>Log in to the appropriate server:</p>
+<p>o 160.40.71.4</p>
+<p>o 160.40.71.6</p></li>
+<li><p>Identify where your NGS results (.fastq files) are located:</p>
+<p>o e.g., /mnt/new_home/stamatopoulos_research/2025_05_21_ERIC_study</p></li>
+<li><p>Move to the precmed working directory:</p>
+<p>o cd /work/precmed/varCall/</p></li>
+<li><p>Create a new analysis directory:</p>
+<p>o mkdir run-2025-05-22-fastqc</p></li>
+<li><p>Run the fastqc (you have to update with the right path to your fastq files):</p>
+<p>fastqc /mnt/new_home/stamatopoulos_research/2025_05_21_ERIC_study/*.fastq.gz<br>
+-o run-2025-05-22-fastqc/</p></li>
+</ol>
 
 
+</section>
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
