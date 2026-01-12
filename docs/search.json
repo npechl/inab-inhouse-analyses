@@ -172,7 +172,7 @@
     "href": "qmd/fastqc.html",
     "title": "fastqc analysis",
     "section": "",
-    "text": "Log in to the appropriate server:\no 160.40.71.4\no 160.40.71.6\nIdentify where your NGS results (.fastq files) are located:\no e.g., /mnt/new_home/stamatopoulos_research/2025_05_21_ERIC_study\nMove to the precmed working directory:\no cd /work/precmed/varCall/\nCreate a new analysis directory:\no mkdir run-2025-05-22-fastqc\nRun the fastqc (you have to update with the right path to your fastq files):\nfastqc /mnt/new_home/stamatopoulos_research/2025_05_21_ERIC_study/*.fastq.gz\n-o run-2025-05-22-fastqc/"
+    "text": "Log in to the appropriate server:\no 160.40.71.4\nIdentify where your NGS results (.fastq files) are located:\no e.g., /mnt/new_home/stamatopoulos_research/2025_05_21_ERIC_study\nMove to the precmed working directory:\ncd /work/precmed/varCall/\nCreate a new analysis directory:\nmkdir run-2025-05-22-fastqc\nRun the fastqc (you have to update with the right path to your fastq files):\nfastqc /mnt/new_home/stamatopoulos_research/2025_05_21_ERIC_study/*.fastq.gz -o run-2025-05-22-fastqc/"
   },
   {
     "objectID": "qmd/fastqc.html#how-to-run-fastqc",
@@ -186,7 +186,7 @@
     "href": "qmd/fastqc.html#how-to-run-fastqc-in-the-computational-infrastructure-of-inab",
     "title": "fastqc analysis",
     "section": "",
-    "text": "Log in to the appropriate server:\no 160.40.71.4\no 160.40.71.6\nIdentify where your NGS results (.fastq files) are located:\no e.g., /mnt/new_home/stamatopoulos_research/2025_05_21_ERIC_study\nMove to the precmed working directory:\no cd /work/precmed/varCall/\nCreate a new analysis directory:\no mkdir run-2025-05-22-fastqc\nRun the fastqc (you have to update with the right path to your fastq files):\nfastqc /mnt/new_home/stamatopoulos_research/2025_05_21_ERIC_study/*.fastq.gz\n-o run-2025-05-22-fastqc/"
+    "text": "Log in to the appropriate server:\no 160.40.71.4\nIdentify where your NGS results (.fastq files) are located:\no e.g., /mnt/new_home/stamatopoulos_research/2025_05_21_ERIC_study\nMove to the precmed working directory:\ncd /work/precmed/varCall/\nCreate a new analysis directory:\nmkdir run-2025-05-22-fastqc\nRun the fastqc (you have to update with the right path to your fastq files):\nfastqc /mnt/new_home/stamatopoulos_research/2025_05_21_ERIC_study/*.fastq.gz -o run-2025-05-22-fastqc/"
   },
   {
     "objectID": "qmd/fastqc.html#section",
@@ -194,5 +194,19 @@
     "title": "fastqc analysis",
     "section": "",
     "text": "Steps to run fastqc analysis:\n\nLog in to the appropriate server:\no 160.40.71.4\no 160.40.71.6\nIdentify where your NGS results (.fastq files) are located:\no e.g., /mnt/new_home/stamatopoulos_research/2025_05_21_ERIC_study\nMove to the precmed working directory:\no cd /work/precmed/varCall/\nCreate a new analysis directory:\no mkdir run-2025-05-22-fastqc\nRun the fastqc (you have to update with the right path to your fastq files):\nfastqc /mnt/new_home/stamatopoulos_research/2025_05_21_ERIC_study/*.fastq.gz\n-o run-2025-05-22-fastqc/"
+  },
+  {
+    "objectID": "qmd/fastqc.html#running-fastqc-at-inab",
+    "href": "qmd/fastqc.html#running-fastqc-at-inab",
+    "title": "FastQC Analysis",
+    "section": "",
+    "text": "FastQC is the first step in any NGS pipeline. It provides a modular set of analyses which help you spot potential problems in your sequencing data (e.g., adapter contamination, low-quality bases).\n\n\n\nLog in to the server: Open your terminal and connect to the analysis node: ssh username@160.40.71.4\nLocate your data: Identify where your NGS results (.fastq.gz files) are located.\nExample path: /mnt/new_home/stamatopoulos_research/2025_05_21_ERIC_study\nMove to the working directory: We perform our analyses in the precmed volume: bash     cd /work/precmed/varCall/\nCreate an output directory: Always keep your results organized in a dated folder. bash     mkdir run-2025-05-22-fastqc\nRun FastQC: Use the wildcard *.fastq.gz to process all samples at once. Ensure you point the -o flag to your newly created directory. bash     fastqc /mnt/new_home/stamatopoulos_research/2025_05_21_ERIC_study/*.fastq.gz -o run-2025-05-22-fastqc/"
+  },
+  {
+    "objectID": "qmd/fastqc.html#interpreting-the-results",
+    "href": "qmd/fastqc.html#interpreting-the-results",
+    "title": "FastQC Analysis",
+    "section": "📊 Interpreting the Results",
+    "text": "📊 Interpreting the Results\nOnce the run finishes, FastQC will generate an .html report for every file. Open these in a web browser to check the following key modules:\n\n✅ Per base sequence quality: Most bases should be in the “green” zone (&gt; Q30). If the quality drops significantly at the end of the reads, you may need to perform trimming.\n✅ Adapter Content: If this module fails, it means Illumina adapter sequences were detected. You must remove these before alignment.\n✅ Sequence Duplication Levels: High duplication can indicate PCR over-amplification or low library complexity.\n\n\n[!TIP] MultiQC: If you have dozens of samples, looking at individual reports is slow. Use MultiQC to aggregate all FastQC reports into a single, easy-to-read summary page."
   }
 ]

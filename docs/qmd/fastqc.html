@@ -20,6 +20,41 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -40,7 +75,7 @@ ul.task-list li input[type="checkbox"] {
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-7b24b5a7a5ceaea606057c59d6d9f3e3.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-1b84ce471a70f49d984f3e9153d32491.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -177,21 +212,19 @@ ul.task-list li input[type="checkbox"] {
 
 <section id="how-to-run-fastqc-in-the-computational-infrastructure-of-inab" class="level2">
 <h2 class="anchored" data-anchor-id="how-to-run-fastqc-in-the-computational-infrastructure-of-inab">How to run <strong>fastqc</strong> in the computational infrastructure of INAB</h2>
-<section id="steps-to-run-fastqc-analysis" class="level4">
-<h4 class="anchored" data-anchor-id="steps-to-run-fastqc-analysis">Steps to run fastqc analysis:</h4>
+<section id="steps-to-run-fastqc-analysis" class="level3">
+<h3 class="anchored" data-anchor-id="steps-to-run-fastqc-analysis">Steps to run fastqc analysis:</h3>
 <ol type="1">
 <li><p>Log in to the appropriate server:</p>
-<p>o 160.40.71.4</p>
-<p>o 160.40.71.6</p></li>
+<p>o 160.40.71.4</p></li>
 <li><p>Identify where your NGS results (.fastq files) are located:</p>
 <p>o e.g., /mnt/new_home/stamatopoulos_research/2025_05_21_ERIC_study</p></li>
 <li><p>Move to the precmed working directory:</p>
-<p>o cd /work/precmed/varCall/</p></li>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> /work/precmed/varCall/</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div></li>
 <li><p>Create a new analysis directory:</p>
-<p>o mkdir run-2025-05-22-fastqc</p></li>
-<li><p>Run the fastqc (you have to update with the right path to your fastq files):</p>
-<p>fastqc /mnt/new_home/stamatopoulos_research/2025_05_21_ERIC_study/*.fastq.gz<br>
--o run-2025-05-22-fastqc/</p></li>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> run-2025-05-22-fastqc</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div></li>
+<li><p>Run the fastqc (you have to update with the right <strong>path</strong> to your <strong>fastq files</strong>):</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">fastqc</span> /mnt/new_home/stamatopoulos_research/2025_05_21_ERIC_study/<span class="pp">*</span>.fastq.gz <span class="at">-o</span> run-2025-05-22-fastqc/</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div></li>
 </ol>
 
 
@@ -603,7 +636,7 @@ ul.task-list li input[type="checkbox"] {
 <footer class="footer">
   <div class="nav-footer">
     <div class="nav-footer-left">
-<p>This page is built with <a href="https://quarto.org/">Quarto</a></p>
+<p>This page is built with <a href="https://quarto.org/">Quarto</a>.</p>
 </div>   
     <div class="nav-footer-center">
       &nbsp;

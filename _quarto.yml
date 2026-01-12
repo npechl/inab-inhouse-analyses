@@ -33,9 +33,11 @@ website:
             
   page-footer: 
     border: true
-    left: "This page is built with [Quarto](https://quarto.org/)"
+    left: "This page is built with [Quarto](https://quarto.org/)."
     right: "[License](https://github.com/natanast/inab-inhouse-analyses/blob/main/LICENSE)"
     
 format:
   html:
     theme: [morph, sass/theme-light.scss]
+    code-block-bg: true
+    code-block-border-left: "#2b5769"
