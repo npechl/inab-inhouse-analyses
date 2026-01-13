@@ -1,3 +1,71 @@
 ---
-title: "Manuals"
+title: "BCL Convert"
+execute:
+  echo: false
 ---
+
+## How to run **BCL Convert** in the computational infrastructure of INAB
+
+### Steps to run BCL Convert analysis:
+
+1.  Log in to the appropriate server:
+
+    o 160.40.71.4
+
+2.  Identify where your NGS results (.bcl files and SampleSheet) are located:
+
+    o e.g., /mnt/new_home/illumina/nextseq2000/240412_VH00795_60_AAFLFTVM5
+
+3.  Create your SampleSheet.csv:
+
+    o Generally, a SampleSheet must include two sections: (1) the Settings Section and (2) the Data Section
+
+    o In the Data Section you can add a column named **Sample_Project** containing the name of the respective project for each sample. Sample_Project Optional can only contain alphanumeric characters, dashes, and underscores. Duplicate data strings with different cases (e.g., sampleProject and SampleProject) are **not allowed**. If these are used, **analysis fails**.
+
+4.  Move to your working folder:
+
+    o In case there are only samples from your lab run:
+
+    ``` bash
+    cd /mnt/new_home/stamatopoulos_research/
+    ```
+
+    o In case there are samples from multiple labs run:
+
+    ``` bash
+    cd /mnt/new_home/illumina_common_fastq
+    ```
+
+5.  Upload your SampleSheet.csv to your working folder:
+
+    o Any SFTP program (e.g., Bitvise SSH Client) can be used to transfer SampleSheet.csv. Just drag & drop the file from the left to the right window.
+
+6.  Define a distinctive name for the folder that will contain the bcl-convert results (e.g., 2025_05_20_ERIC_study) and use it as input after the --output-directory argument (check the command below)
+
+7.  Now you can execute bcl-convert (version 00.000.000.3.10.12), based on the following command:
+
+    ``` bash
+    nohup bcl-convert \
+    --bcl-input-directory /mnt/new_home/illumina/nextseq2000/240412_VH00795_60_AAFLFTVM5 \
+    --output-directory 2025_05_20_ERIC_study \
+    --sample-sheet SampleSheet.csv \
+    --no-lane-splitting true \
+    --bcl-sampleproject-subdirectories \
+    -–force > ./2025_05_20_ERIC_study.log 2>&1 &
+    ```
+
+8.  After the command for bcl-convert has run successfully, move your SampleSheet.csv to the output folder:
+
+    ``` bash
+    mv SampleSheet.csv 2025_05_20_ERIC_study
+    ```
+
+9.  Files older than **2 weeks** will be automatically **deleted** from shared folders!
+
+    For this reason, if we have run the analysis in a shared folder such as */mnt/new_home/illumina_common_fastq*, we should transfer the final files to our **own** subfolder, which will be located under our research group's folder.
+
+    ``` bash
+    rsync -r \
+    /mnt/new_home/illumina_common_fastq/2025_05_20_ERIC_study \
+    /mnt/new_home/stamatopoulos_research
+    ```

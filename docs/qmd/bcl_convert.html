@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Manuals – INAB In-House Analysis</title>
+<title>BCL Convert – INAB In-House Analysis</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -19,6 +19,41 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -158,7 +193,7 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Manuals</h1>
+<h1 class="title">BCL Convert</h1>
 </div>
 
 
@@ -175,8 +210,46 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
+<section id="how-to-run-bcl-convert-in-the-computational-infrastructure-of-inab" class="level2">
+<h2 class="anchored" data-anchor-id="how-to-run-bcl-convert-in-the-computational-infrastructure-of-inab">How to run <strong>BCL Convert</strong> in the computational infrastructure of INAB</h2>
+<section id="steps-to-run-bcl-convert-analysis" class="level3">
+<h3 class="anchored" data-anchor-id="steps-to-run-bcl-convert-analysis">Steps to run BCL Convert analysis:</h3>
+<ol type="1">
+<li><p>Log in to the appropriate server:</p>
+<p>o 160.40.71.4</p></li>
+<li><p>Identify where your NGS results (.bcl files and SampleSheet) are located:</p>
+<p>o e.g., /mnt/new_home/illumina/nextseq2000/240412_VH00795_60_AAFLFTVM5</p></li>
+<li><p>Create your SampleSheet.csv:</p>
+<p>o Generally, a SampleSheet must include two sections: (1) the Settings Section and (2) the Data Section</p>
+<p>o In the Data Section you can add a column named <strong>Sample_Project</strong> containing the name of the respective project for each sample. Sample_Project Optional can only contain alphanumeric characters, dashes, and underscores. Duplicate data strings with different cases (e.g., sampleProject and SampleProject) are <strong>not allowed</strong>. If these are used, <strong>analysis fails</strong>.</p></li>
+<li><p>Move to your working folder:</p>
+<p>o In case there are only samples from your lab run:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> /mnt/new_home/stamatopoulos_research/</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>o In case there are samples from multiple labs run:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> /mnt/new_home/illumina_common_fastq</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div></li>
+<li><p>Upload your SampleSheet.csv to your working folder:</p>
+<p>o Any SFTP program (e.g., Bitvise SSH Client) can be used to transfer SampleSheet.csv. Just drag &amp; drop the file from the left to the right window.</p></li>
+<li><p>Define a distinctive name for the folder that will contain the bcl-convert results (e.g., 2025_05_20_ERIC_study) and use it as input after the –output-directory argument (check the command below)</p></li>
+<li><p>Now you can execute bcl-convert (version 00.000.000.3.10.12), based on the following command:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">nohup</span> bcl-convert <span class="dt">\</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>--bcl-input-directory /mnt/new_home/illumina/nextseq2000/240412_VH00795_60_AAFLFTVM5 <span class="dt">\</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>--output-directory 2025_05_20_ERIC_study <span class="dt">\</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>--sample-sheet SampleSheet.csv <span class="dt">\</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>--no-lane-splitting true <span class="dt">\</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>--bcl-sampleproject-subdirectories <span class="dt">\</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>-–force <span class="op">&gt;</span> ./2025_05_20_ERIC_study.log <span class="dv">2</span><span class="op">&gt;&amp;</span><span class="dv">1</span> <span class="kw">&amp;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div></li>
+<li><p>After the command for bcl-convert has run successfully, move your SampleSheet.csv to the output folder:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mv</span> SampleSheet.csv 2025_05_20_ERIC_study</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div></li>
+<li><p>Files older than <strong>2 weeks</strong> will be automatically <strong>deleted</strong> from shared folders!</p>
+<p>For this reason, if we have run the analysis in a shared folder such as <em>/mnt/new_home/illumina_common_fastq</em>, we should transfer the final files to our <strong>own</strong> subfolder, which will be located under our research group’s folder.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rsync</span> <span class="at">-r</span> <span class="dt">\</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>/mnt/new_home/illumina_common_fastq/2025_05_20_ERIC_study <span class="dt">\</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>/mnt/new_home/stamatopoulos_research</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div></li>
+</ol>
 
 
+</section>
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -583,7 +656,7 @@ ul.task-list li input[type="checkbox"] {
 <footer class="footer">
   <div class="nav-footer">
     <div class="nav-footer-left">
-<p>This page is built with <a href="https://quarto.org/">Quarto</a></p>
+<p>This page is built with <a href="https://quarto.org/">Quarto</a>.</p>
 </div>   
     <div class="nav-footer-center">
       &nbsp;
