@@ -28,6 +28,8 @@ website:
             href: qmd/rnaseq.qmd
           - text: ENA
             href: qmd/ena.qmd
+          - text: ERGO-ii
+            href: qmd/ergo.qmd
         
         
             
