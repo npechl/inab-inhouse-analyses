@@ -1,3 +1,13 @@
 ---
 title: "RNAseq analysis"
+execute:
+  echo: false
 ---
+
+## How to run **RNAseq analysis** in the computational infrastructure of INAB
+
+### Steps to run fastqc analysis:
+
+1.  Log in to the appropriate server:
+
+    o 160.40.71.4

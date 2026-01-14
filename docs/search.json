@@ -243,5 +243,19 @@
     "title": "bases2fastq",
     "section": "",
     "text": "Log in to the appropriate server:\no 160.40.71.4\nIdentify where your NGS results (.bcl files and SampleSheet) are located:\no e.g., /mnt/new_home/element/AV240301/20250131_AV240301_SARSDIAGNOSIS\nActivate conda environment with dependencies for bases2fastq:\nsource activate /apps/miniconda3/envs/bases2fastq_dependencies\nCreate your RunManifest.csv:\no Information for preparing the RunManifest file can be found here.\no You can add a column named Project containing the name of the respective project for each sample.\no In the Data Section you can add a column named Project containing the name of the respective project for each sample.\nProject can only contain alphanumeric characters, dashes, and underscores.\nMove to your working folder:\no In case there are only samples from your lab run:\ncd /mnt/new_home/stamatopoulos_research/\no In case there are samples from multiple labs run:\ncd /mnt/new_home/illumina_common_fastq\nUpload your RunManifest.csv to your working folder.\no Any SFTP program (e.g., Bitvise SSH Client) can be used to transfer RunManifest.csv. Just drag & drop the file from the left to the right window.\nDefine a distinctive name for the folder that will contain the bases2fastq results (e.g., 2025_05_21_ERIC_study) and use it as input (check the command below)\nNow you can execute bases2fastq (version 2.1.0.1522407762), based on the following command:\nnohup /apps/element/bases2fastq \\\n--num-threads 16 \\\n--group-fastq \\\n--legacy-fastq \\\n--run-manifest RunManifest.csv \\\n/mnt/new_home/element/AV240301/20250131_AV240301_SARSDIAGNOSIS/ \\\n2025_05_21_ERIC_study/ &gt; ./2025_05_21_ERIC_study.log 2&gt;&1 &\nAfter the command for bases2fastq has run successfully, move your RunManifest.csv to the output folder:\nmv RunManifest.csv 2025_05_21_ERIC_study\nFiles older than 2 weeks will be automatically deleted from shared folders!\nFor this reason, if we have run the analysis in a shared folder such as /mnt/new_home/element_common_fastq, we should transfer the final files to our own subfolder, which will be located under our research group’s folder.\nrsync -r \\\n2025_05_21_ERIC_study \\\n/mnt/new_home/stamatopoulos_research"
+  },
+  {
+    "objectID": "qmd/rnaseq.html",
+    "href": "qmd/rnaseq.html",
+    "title": "RNAseq analysis",
+    "section": "",
+    "text": "Log in to the appropriate server:\no 160.40.71.4"
+  },
+  {
+    "objectID": "qmd/rnaseq.html#how-to-run-rnaseq-analysis-in-the-computational-infrastructure-of-inab",
+    "href": "qmd/rnaseq.html#how-to-run-rnaseq-analysis-in-the-computational-infrastructure-of-inab",
+    "title": "RNAseq analysis",
+    "section": "",
+    "text": "Log in to the appropriate server:\no 160.40.71.4"
   }
 ]
