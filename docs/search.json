@@ -249,7 +249,7 @@
     "href": "qmd/rnaseq.html",
     "title": "RNAseq analysis",
     "section": "",
-    "text": "Log in to the appropriate server:\no 160.40.71.4"
+    "text": "Log in to the appropriate server:\no 160.40.71.4\nIdentify where your NGS results (.fastq files) are located:\no e.g., /mnt/new_home/stamatopoulos_research/2025_05_21_ERIC_study"
   },
   {
     "objectID": "qmd/rnaseq.html#how-to-run-rnaseq-analysis-in-the-computational-infrastructure-of-inab",
@@ -257,5 +257,19 @@
     "title": "RNAseq analysis",
     "section": "",
     "text": "Log in to the appropriate server:\no 160.40.71.4"
+  },
+  {
+    "objectID": "qmd/rnaseq.html#steps-to-run-fastqc-analysis",
+    "href": "qmd/rnaseq.html#steps-to-run-fastqc-analysis",
+    "title": "How to run RNAseq analysis in the computational infrastructure of INAB",
+    "section": "",
+    "text": "Log in to the appropriate server:\no 160.40.71.4"
+  },
+  {
+    "objectID": "qmd/rnaseq.html#how-to-run-rnaseq-analyis-in-the-computational-infrastructure-of-inab",
+    "href": "qmd/rnaseq.html#how-to-run-rnaseq-analyis-in-the-computational-infrastructure-of-inab",
+    "title": "RNAseq analysis",
+    "section": "",
+    "text": "Log in to the appropriate server:\no 160.40.71.4\nIdentify where your NGS results (.fastq files) are located:\no e.g., /mnt/new_home/stamatopoulos_research/2025_05_21_ERIC_study"
   }
 ]

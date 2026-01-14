@@ -4,10 +4,14 @@ execute:
   echo: false
 ---
 
-## How to run **RNAseq analysis** in the computational infrastructure of INAB
+## How to run **RNAseq analyis** in the computational infrastructure of INAB
 
 ### Steps to run fastqc analysis:
 
 1.  Log in to the appropriate server:
 
     o 160.40.71.4
+    
+2.  Identify where your NGS results (.fastq files) are located:
+
+    o e.g., /mnt/new_home/stamatopoulos_research/2025_05_21_ERIC_study
