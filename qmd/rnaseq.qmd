@@ -55,4 +55,34 @@ execute:
 
     In order to **edit** the SampleList use the following:
 
-    o Delete button: removes one letter
+    o `Delete button`: Removes one letter
+
+    o `Ctrl + k`: Removes a whole row
+
+    o `Ctrl + o and Enter`: Saves the modified SampleList
+
+    o `Ctrl + x`: Exits and returns to the terminal
+
+9.  Run the analysis (you have to **update** with the right path):
+
+    ``` bash
+    nohup bash runSTAR.sh\
+    /mnt/new_home/stamatopoulos_research/RNAseq_2025_05_21\
+    SampleList\
+    /mnt/new_home/bio_tmp/HSapRefData/hg38/gencode/star\
+    /mnt/new_home/bio_tmp/HSapRefData/hg38/gencode/gencode.v47.primary_assembly.basic.annotation.gtf\
+    16\
+    &
+    ```
+
+10. After the analysis is completed, move **your folder** from /work to /mnt/new_home
+
+    ``` bash
+    cd ..
+    ```
+    
+    ```bash
+    rsync -r \
+    RNAseq_analysis_2025_05_21 \
+    /mnt/new_home/stamatopoulos_research
+    ```
