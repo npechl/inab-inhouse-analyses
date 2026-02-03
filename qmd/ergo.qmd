@@ -111,7 +111,7 @@ The peptides file is a 3 – column table containing the following information:
     cd ERGO-helpers/ERGO-II
     ```
 
-7.  Create a folder named data:
+7.  Create a folder named data and upload your data there:
 
     ``` bash
     mkdir data
