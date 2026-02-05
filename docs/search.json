@@ -1,52 +1,87 @@
 [
   {
-    "objectID": "index.html",
-    "href": "index.html",
-    "title": "Welcome",
+    "objectID": "qmd/unix.html",
+    "href": "qmd/unix.html",
+    "title": "Basic Unix Commands",
     "section": "",
-    "text": "Welcome to the INAB In-House Analyses guide."
+    "text": "Most bioinformatics tools run in a terminal, not a graphical program.\nUnix commands let you:\n\nmove around folders\nlist and inspect files\nrun analysis programs"
   },
   {
-    "objectID": "index.html#introduction",
-    "href": "index.html#introduction",
-    "title": "Welcome",
-    "section": "Introduction",
-    "text": "Introduction\nThis page provides internal documentation for performing standard bioinformatics analyses at the lab, including setup, data preprocessing, and downstream workflows.\n\nNote: This document is for internal use only."
-  },
-  {
-    "objectID": "index.html#authors",
-    "href": "index.html#authors",
-    "title": "Welcome",
-    "section": "Authors",
-    "text": "Authors\n Natasa Anastasiadou  Nikos Pechlivanis  Sofoklis Keisaris"
-  },
-  {
-    "objectID": "qmd/data.html",
-    "href": "qmd/data.html",
-    "title": "Data & Metadata",
+    "objectID": "qmd/unix.html#why-unix",
+    "href": "qmd/unix.html#why-unix",
+    "title": "Basic Unix Commands",
     "section": "",
-    "text": "Bioinformatics tools are very strict about filenames, sample IDs, and metadata.\nEven one wrong character can:\n\nbreak pipelines\nmismatch samples\ncause failed downstream analyses (DESeq2, Seurat)\nmake reproducibility impossible\n\nSo, we require standardized naming."
+    "text": "Most bioinformatics tools run in a terminal, not a graphical program.\nUnix commands let you:\n\nmove around folders\nlist and inspect files\nrun analysis programs"
   },
   {
-    "objectID": "qmd/data.html#data-cleaning",
-    "href": "qmd/data.html#data-cleaning",
-    "title": "Data & Metadata",
+    "objectID": "qmd/unix.html#navigation-where-am-i",
+    "href": "qmd/unix.html#navigation-where-am-i",
+    "title": "Basic Unix Commands",
+    "section": "Navigation (Where am I?)",
+    "text": "Navigation (Where am I?)\nBefore you can analyze data, you must know how to move around the folders (directories).\n\npwd (Print Working Directory): Shows your current location.\nls (List): Shows files in the current folder.\ncd folder/ (Change Directory): Move into a folder.\ncd ..: Move one level up.\ncd ~: Go to your home directory.\nmkdir name (Make Directory): Create a new folder."
+  },
+  {
+    "objectID": "qmd/unix.html#copy-and-move-files",
+    "href": "qmd/unix.html#copy-and-move-files",
+    "title": "Basic Unix Commands",
+    "section": "Copy and move files",
+    "text": "Copy and move files\n\ncp file folder/: Copy file from the first argument (source) to the last (destination).\nmv file folder/: Move file from the first argument (source) to the last (destination).\nrm file: Remove file. Caution: There is no “Trash Can”, Removed files are gone."
+  },
+  {
+    "objectID": "qmd/unix.html#inspecting-files",
+    "href": "qmd/unix.html#inspecting-files",
+    "title": "Basic Unix Commands",
+    "section": "Inspecting Files",
+    "text": "Inspecting Files\nNever open a ~10GB FASTQ file in a text editor like Word or Notepad. It will crash. Use these instead:\n\nhead -n 20 file.txt: See the first 20 lines.\ntail -n 20 file.txt: See the last 20 lines (useful for checking if a log file finished correctly)."
+  },
+  {
+    "objectID": "qmd/unix.html#working-with-compressed-data",
+    "href": "qmd/unix.html#working-with-compressed-data",
+    "title": "Basic Unix Commands",
+    "section": "Working with Compressed Data",
+    "text": "Working with Compressed Data\nBioinformatics data is almost always compressed (.gz) to save space.\n\nzcat name.fastq.gz | head: View the top of a compressed fastq file.\ngzip file: Compresses a file and adds a .gz extension.\ngunzip file.gz: Decompresses the file."
+  },
+  {
+    "objectID": "qmd/unix.html#counting-and-searching",
+    "href": "qmd/unix.html#counting-and-searching",
+    "title": "Basic Unix Commands",
+    "section": "Counting and Searching",
+    "text": "Counting and Searching\n\nwc -l file.txt: count lines.\ngrep \"searchterm\" file.txt: find lines containing a word.\ngrep -c \"^@\" file.fastq: Count how many sequence headers (starting with @) are in a file."
+  },
+  {
+    "objectID": "qmd/merge_lanes.html",
+    "href": "qmd/merge_lanes.html",
+    "title": "Merge lanes",
     "section": "",
-    "text": "Bioinformatics tools are very strict about filenames, sample IDs, and metadata.\nEven one wrong character can:\n\nbreak pipelines\nmismatch samples\ncause failed downstream analyses (DESeq2, Seurat)\nmake reproducibility impossible\n\nSo, we require standardized naming."
+    "text": "Log in to the appropriate server:\no 160.40.71.4\nIdentify where your NGS results (.fastq files) are located:\no e.g., /mnt/new_home/stamatopoulos_research/date_study\nMove to the your working directory:\ncd /work/folder_of_each_user\nCreate a new analysis directory:\nmkdir mergeLanes_2025_05_21\nMove to the your new analysis directory:\ncd /work/mergeLanes_2025_05_21\nDownload script to your analysis directory\nwget https://raw.githubusercontent.com/natanast/RNAseq_analysis/main/merge-lanes/mergeLanes.sh\nwget https://raw.githubusercontent.com/natanast/RNAseq_analysis/main/merge-lanes/runMERGELANES.sh\nCreate a SampleList (you have to update with the right path to your fastq files), for example:\nls -la /mnt/new_home/stamatopoulos_research/date_study | awk '{print $9}' | awk -F \"_L\" '{print $1}' | sort | uniq &gt; SampleList\nRemove samples that should not be analyzed:\nnano SampleList\nIn order to edit the SampleList use the following:\no Delete button: Removes one letter\no Ctrl + k: Removes a whole row\no Ctrl + o and Enter: Saves the modified SampleList\no Ctrl + x: Exits and returns to the terminal\nRun the analysis (you have to update with the right path):\nnohup bash runMERGELANES.sh \\\n/mnt/new_home/stamatopoulos_research/date_study \\\nSampleList \\    \n&\nAfter the analysis is completed, move your folder from /work to /mnt/new_home\ncd ..\nrsync -r \\\nmergeLanes_2025_05_21 \\\n/mnt/new_home/stamatopoulos_research"
   },
   {
-    "objectID": "qmd/data.html#common-naming-problems",
-    "href": "qmd/data.html#common-naming-problems",
-    "title": "Data & Metadata",
-    "section": "❌ Common Naming Problems",
-    "text": "❌ Common Naming Problems\nList of common errors found in metadata:\n\nDuplicate sample names (e.g., sample1 appearing twice)\nGreek characters (α, β, Α, Τ)\nSpaces in names (Sample 1, Control rep 2)\nSpecial characters (!, %, @, #, (, ), /)\nDifferent names for the same sample (CTRL1, Ctrl1, control_1)"
+    "objectID": "qmd/merge_lanes.html#how-to-run-merge-lanes-in-the-computational-infrastructure-of-inab",
+    "href": "qmd/merge_lanes.html#how-to-run-merge-lanes-in-the-computational-infrastructure-of-inab",
+    "title": "Merge lanes",
+    "section": "",
+    "text": "Log in to the appropriate server:\no 160.40.71.4\nIdentify where your NGS results (.fastq files) are located:\no e.g., /mnt/new_home/stamatopoulos_research/date_study\nMove to the your working directory:\ncd /work/folder_of_each_user\nCreate a new analysis directory:\nmkdir mergeLanes_2025_05_21\nMove to the your new analysis directory:\ncd /work/mergeLanes_2025_05_21\nDownload script to your analysis directory\nwget https://raw.githubusercontent.com/natanast/RNAseq_analysis/main/merge-lanes/mergeLanes.sh\nwget https://raw.githubusercontent.com/natanast/RNAseq_analysis/main/merge-lanes/runMERGELANES.sh\nCreate a SampleList (you have to update with the right path to your fastq files), for example:\nls -la /mnt/new_home/stamatopoulos_research/date_study | awk '{print $9}' | awk -F \"_L\" '{print $1}' | sort | uniq &gt; SampleList\nRemove samples that should not be analyzed:\nnano SampleList\nIn order to edit the SampleList use the following:\no Delete button: Removes one letter\no Ctrl + k: Removes a whole row\no Ctrl + o and Enter: Saves the modified SampleList\no Ctrl + x: Exits and returns to the terminal\nRun the analysis (you have to update with the right path):\nnohup bash runMERGELANES.sh \\\n/mnt/new_home/stamatopoulos_research/date_study \\\nSampleList \\    \n&\nAfter the analysis is completed, move your folder from /work to /mnt/new_home\ncd ..\nrsync -r \\\nmergeLanes_2025_05_21 \\\n/mnt/new_home/stamatopoulos_research"
   },
   {
-    "objectID": "qmd/data.html#the-correct-naming-rules",
-    "href": "qmd/data.html#the-correct-naming-rules",
-    "title": "Data & Metadata",
-    "section": "✅ The Correct Naming Rules",
-    "text": "✅ The Correct Naming Rules\nSample names MUST:"
+    "objectID": "qmd/ergo.html",
+    "href": "qmd/ergo.html",
+    "title": "ERGO-ii analysis",
+    "section": "",
+    "text": "Follow instructions here: The Comprehensive R Archive Network. If you cannot download R on your local machine please contact inab-support@certh.gr.\n\n\n\nFollow instructions here: RStudio Desktop - Posit (2: Install RStudio). If you cannot download R on your local machine please contact inab-support@certh.gr.\n\n\n\n\nYour data should be organized with the following format:\nmy_data/\n├─ Group1/\n│  ├─ Clonotypes/\n│  │  ├─ Clonotypes_sample1.txt\n│  │  ├─ Clonotypes_sample2.txt\n│  │  ├─ ...\n│  ├─ peptides.xlsx\n├─ Group2/\n│  ├─ Clonotypes/\n│  │  ├─ ...\n│  ├─ peptides.xlsx\n├─ .../\n│  ├─ .../\n│  ├─ ...\n\n\n\nThe peptides file is a 3 – column table containing the following information:\n\n\n\nHLA allele\nPeptide\nSample\n\n\n\n\nHLA-A*02:02\nAMAIAVPANV\nSample1\n\n\nHLA-A*02:02\nMAIAVPANV\nSample1\n\n\nHLA-A*03:01\nAIAVPANVY\nSample2\n\n\nHLA-C*07:01\nQSYSPPFSF\nSample3"
+  },
+  {
+    "objectID": "qmd/ergo.html#how-to-run-ergo-ii-anlaysis-in-the-computational-infrastructure-of-inab",
+    "href": "qmd/ergo.html#how-to-run-ergo-ii-anlaysis-in-the-computational-infrastructure-of-inab",
+    "title": "ERGO-ii analysis",
+    "section": "",
+    "text": "Follow instructions here: The Comprehensive R Archive Network. If you cannot download R on your local machine please contact inab-support@certh.gr.\n\n\n\nFollow instructions here: RStudio Desktop - Posit (2: Install RStudio). If you cannot download R on your local machine please contact inab-support@certh.gr.\n\n\n\n\nYour data should be organized with the following format:\nmy_data/\n├─ Group1/\n│  ├─ Clonotypes/\n│  │  ├─ Clonotypes_sample1.txt\n│  │  ├─ Clonotypes_sample2.txt\n│  │  ├─ ...\n│  ├─ peptides.xlsx\n├─ Group2/\n│  ├─ Clonotypes/\n│  │  ├─ ...\n│  ├─ peptides.xlsx\n├─ .../\n│  ├─ .../\n│  ├─ ...\n\n\n\nThe peptides file is a 3 – column table containing the following information:\n\n\n\nHLA allele\nPeptide\nSample\n\n\n\n\nHLA-A*02:02\nAMAIAVPANV\nSample1\n\n\nHLA-A*02:02\nMAIAVPANV\nSample1\n\n\nHLA-A*03:01\nAIAVPANVY\nSample2\n\n\nHLA-C*07:01\nQSYSPPFSF\nSample3"
+  },
+  {
+    "objectID": "qmd/ergo.html#steps",
+    "href": "qmd/ergo.html#steps",
+    "title": "ERGO-ii analysis",
+    "section": "Steps",
+    "text": "Steps\n\nCreating ERGO-II input files\n\nOpen RStudio\nSet up your working directory – find the folder where your data are located and choose “Set as Working Directory”\n\n\n\nDownload the necessary R scripts from here: ERGO-helpers/R at main · BiodataAnalysisGroup/ERGO-helpers and place them into your working directory.\nOpen the 01.build_ergo_inputs.R and update it with the right path of the data to run first (lines 14 + 15, remove the others if necessary).\nProvide an output folder name of preference (line 17)\nRun the script\nWhen complete a folder will be created with the following structure:\nmy_output_folder/\n├─ ergo-ii-input_sample1.csv\n├─ ergo-ii-input_sample2.csv\n├─ ...\n\n\n\nSteps to run ERGO:\n\nLog in to the appropriate server:\no 160.40.71.4\nMove to the your working directory:\ncd /work/folder_of_each_user\nCreate a new analysis directory:\nmkdir ergo-ii_2026-01-07\nMove to the your new analysis directory:\ncd /work/ergo-ii_2026-01-07\nDownload script to your analysis directory\ngit clone https://github.com/BiodataAnalysisGroup/ERGO-helpers.git\nMove to the your new analysis directory:\ncd ERGO-helpers/ERGO-II\nCreate a folder named data and upload your data there:\nmkdir data\nCreate a sample list:\nls -la data/ | awk '{print $9}' | awk -F \"_\" '{print $2}' | awk -F \".\" '{print $1}' | sort | uniq &gt; SampleList\nRemove samples that should not be analyzed:\nnano SampleList\nIn order to edit the SampleList use the following:\no Delete button: Removes one letter\no Ctrl + k: Removes a whole row\no Ctrl + o and Enter: Saves the modified SampleList\no Ctrl + x: Exits and returns to the terminal\nRun the analysis (you have to update with the right path):\nbash runERGO-II.sh &gt; run.sh\nnohup bash run.sh &\nWhen complete score files will be created inside the folder you have uploaded.\n\n\n\nFiltering ERGO-II results\n\nGo back to your working directory (RStudio).\nSet it as your Working Directory (same steps as before).\nCreate a new folder (e.g. ergo-ii_scores) and download the resulted scores files from the server.\nOpen the 02.filter_ergo_scores.R and update it with the right path of the data to run first (lines 9 + 10, remove the others if necessary).\nProvide an output folder name of preference (line 12).\nRun the script."
   },
   {
     "objectID": "qmd/data_cleaning.html",
@@ -70,13 +105,6 @@
     "text": "❌ Common Naming Problems\nList of common errors found in file names metadata:\n\nDuplicate sample names (e.g., sample1 appearing twice)\nGreek characters (α, β, Α, Τ)\nSpaces in names (Sample 1, Control rep 2)\nSpecial characters (!, %, @, #, (, ), /)\nDifferent names for the same sample (CTRL1, Ctrl1, control_1)"
   },
   {
-    "objectID": "qmd/data_cleaning.html#the-correct-naming-rules",
-    "href": "qmd/data_cleaning.html#the-correct-naming-rules",
-    "title": "Data & Metadata",
-    "section": "✅ The Correct Naming Rules",
-    "text": "✅ The Correct Naming Rules\nSample names MUST:\n\nuse English letters only\nnever change file names between FASTQ - metadata - results\nuse only letters, numbers, and underscores (A–Z, a–z, 0–9, _)\n✔ A01_Rep1\n❌A01-Rep(1)\nunique names\nbe consistent across files and folders"
-  },
-  {
     "objectID": "qmd/data_cleaning.html#naming-rules",
     "href": "qmd/data_cleaning.html#naming-rules",
     "title": "Data & Metadata",
@@ -84,60 +112,39 @@
     "text": "✅ Naming Rules\nSample names MUST:\n\nuse English letters only\nnever change file names between FASTQ - metadata - results\nuse only letters, numbers, and underscores (A–Z, a–z, 0–9, _)\n✔ A01_Rep1\n❌A01-Rep(1)\nunique names\nbe consistent across files and folders"
   },
   {
-    "objectID": "qmd/unix.html",
-    "href": "qmd/unix.html",
-    "title": "Basic Unix Commands",
+    "objectID": "qmd/data_cleaning.html#project-documentation-the-readme-file",
+    "href": "qmd/data_cleaning.html#project-documentation-the-readme-file",
+    "title": "Data & Metadata",
+    "section": "📄 Project Documentation (The README file)",
+    "text": "📄 Project Documentation (The README file)\nStandardized names are only useful if we know the context of the project. To prevent the loss of critical project details (who did what a year later), every project folder MUST contain a README file.\n\nRecommended Template\nCreate a file named README.txt in your main project folder and use this structure:\nProject: Short Title\nProject owner: Name\nBioinformatician: Name\nDate Started: YYYY-MM-DD\nStatus: In Progress / Completed / Archived\nExperimental Details: A brief description with the contex of the project (e.g. Comparisons, Groups)"
+  },
+  {
+    "objectID": "qmd/bcl_convert.html",
+    "href": "qmd/bcl_convert.html",
+    "title": "BCL Convert",
     "section": "",
-    "text": "Most bioinformatics tools run in a terminal, not a graphical program.\nUnix commands let you:\n\nmove around folders\nlist and inspect files\nrun analysis programs"
+    "text": "Log in to the appropriate server:\no 160.40.71.4\nIdentify where your NGS results (.bcl files and SampleSheet) are located:\no e.g., /mnt/new_home/illumina/nextseq2000/240412_VH00795_60_AAFLFTVM5\nCreate your SampleSheet.csv:\no Generally, a SampleSheet must include two sections: (1) the Settings Section and (2) the Data Section\no In the Data Section you can add a column named Sample_Project containing the name of the respective project for each sample. Sample_Project Optional can only contain alphanumeric characters, dashes, and underscores. Duplicate data strings with different cases (e.g., sampleProject and SampleProject) are not allowed. If these are used, analysis fails.\nMove to your working folder:\no In case there are only samples from your lab run:\ncd /mnt/new_home/stamatopoulos_research/\no In case there are samples from multiple labs run:\ncd /mnt/new_home/illumina_common_fastq\nUpload your SampleSheet.csv to your working folder:\no Any SFTP program (e.g., Bitvise SSH Client) can be used to transfer SampleSheet.csv. Just drag & drop the file from the left to the right window.\nDefine a distinctive name for the folder that will contain the bcl-convert results (e.g., 2025_05_20_ERIC_study) and use it as input after the –output-directory argument (check the command below)\nNow you can execute bcl-convert (version 00.000.000.3.10.12), based on the following command:\nnohup bcl-convert \\\n--bcl-input-directory /mnt/new_home/illumina/nextseq2000/240412_VH00795_60_AAFLFTVM5 \\\n--output-directory 2025_05_20_ERIC_study \\\n--sample-sheet SampleSheet.csv \\\n--no-lane-splitting true \\\n--bcl-sampleproject-subdirectories \\\n-–force &gt; ./2025_05_20_ERIC_study.log 2&gt;&1 &\nAfter the command for bcl-convert has run successfully, move your SampleSheet.csv to the output folder:\nmv SampleSheet.csv 2025_05_20_ERIC_study\nFiles older than 2 weeks will be automatically deleted from shared folders!\nFor this reason, if we have run the analysis in a shared folder such as /mnt/new_home/illumina_common_fastq, we should transfer the final files to our own subfolder, which will be located under our research group’s folder.\nrsync -r \\\n/mnt/new_home/illumina_common_fastq/2025_05_20_ERIC_study \\\n/mnt/new_home/stamatopoulos_research"
   },
   {
-    "objectID": "qmd/unix.html#why-unix",
-    "href": "qmd/unix.html#why-unix",
-    "title": "Basic Unix Commands",
+    "objectID": "qmd/bcl_convert.html#how-to-run-bcl-convert-in-the-computational-infrastructure-of-inab",
+    "href": "qmd/bcl_convert.html#how-to-run-bcl-convert-in-the-computational-infrastructure-of-inab",
+    "title": "BCL Convert",
     "section": "",
-    "text": "Most bioinformatics tools run in a terminal, not a graphical program.\nUnix commands let you:\n\nmove around folders\nlist and inspect files\nrun analysis programs"
+    "text": "Log in to the appropriate server:\no 160.40.71.4\nIdentify where your NGS results (.bcl files and SampleSheet) are located:\no e.g., /mnt/new_home/illumina/nextseq2000/240412_VH00795_60_AAFLFTVM5\nCreate your SampleSheet.csv:\no Generally, a SampleSheet must include two sections: (1) the Settings Section and (2) the Data Section\no In the Data Section you can add a column named Sample_Project containing the name of the respective project for each sample. Sample_Project Optional can only contain alphanumeric characters, dashes, and underscores. Duplicate data strings with different cases (e.g., sampleProject and SampleProject) are not allowed. If these are used, analysis fails.\nMove to your working folder:\no In case there are only samples from your lab run:\ncd /mnt/new_home/stamatopoulos_research/\no In case there are samples from multiple labs run:\ncd /mnt/new_home/illumina_common_fastq\nUpload your SampleSheet.csv to your working folder:\no Any SFTP program (e.g., Bitvise SSH Client) can be used to transfer SampleSheet.csv. Just drag & drop the file from the left to the right window.\nDefine a distinctive name for the folder that will contain the bcl-convert results (e.g., 2025_05_20_ERIC_study) and use it as input after the –output-directory argument (check the command below)\nNow you can execute bcl-convert (version 00.000.000.3.10.12), based on the following command:\nnohup bcl-convert \\\n--bcl-input-directory /mnt/new_home/illumina/nextseq2000/240412_VH00795_60_AAFLFTVM5 \\\n--output-directory 2025_05_20_ERIC_study \\\n--sample-sheet SampleSheet.csv \\\n--no-lane-splitting true \\\n--bcl-sampleproject-subdirectories \\\n-–force &gt; ./2025_05_20_ERIC_study.log 2&gt;&1 &\nAfter the command for bcl-convert has run successfully, move your SampleSheet.csv to the output folder:\nmv SampleSheet.csv 2025_05_20_ERIC_study\nFiles older than 2 weeks will be automatically deleted from shared folders!\nFor this reason, if we have run the analysis in a shared folder such as /mnt/new_home/illumina_common_fastq, we should transfer the final files to our own subfolder, which will be located under our research group’s folder.\nrsync -r \\\n/mnt/new_home/illumina_common_fastq/2025_05_20_ERIC_study \\\n/mnt/new_home/stamatopoulos_research"
   },
   {
-    "objectID": "qmd/unix.html#navigation-where-am-i",
-    "href": "qmd/unix.html#navigation-where-am-i",
-    "title": "Basic Unix Commands",
-    "section": "Navigation (Where am I?)",
-    "text": "Navigation (Where am I?)\nBefore you can analyze data, you must know how to move around the folders (directories).\n\npwd (Print Working Directory): Shows your current location.\nls (List): Shows files in the current folder.\ncd folder/ (Change Directory): Move into a folder.\ncd ..: Move one level up.\ncd ~: Go to your home directory.\nmkdir name (Make Directory): Create a new folder."
-  },
-  {
-    "objectID": "qmd/unix.html#inspecting-files",
-    "href": "qmd/unix.html#inspecting-files",
-    "title": "Basic Unix Commands",
-    "section": "Inspecting Files",
-    "text": "Inspecting Files\nNever open a ~10GB FASTQ file in a text editor like Word or Notepad. It will crash. Use these instead:\n\nhead -n 20 file.txt: See the first 20 lines.\ntail -n 20 file.txt: See the last 20 lines (useful for checking if a log file finished correctly)."
-  },
-  {
-    "objectID": "index.html#author",
-    "href": "index.html#author",
+    "objectID": "index.html",
+    "href": "index.html",
     "title": "Welcome",
-    "section": "Author",
-    "text": "Author\n Natasa Anastasiadou  Sofoklis Keisaris"
+    "section": "",
+    "text": "Welcome to the INAB In-House Analyses guide."
   },
   {
-    "objectID": "qmd/unix.html#copy-and-move-files",
-    "href": "qmd/unix.html#copy-and-move-files",
-    "title": "Basic Unix Commands",
-    "section": "Copy and move files",
-    "text": "Copy and move files\n\ncp file folder/: Copy file from the first argument (source) to the last (destination).\nmv file folder/: Move file from the first argument (source) to the last (destination).\nrm file: Remove file. Caution: There is no “Trash Can”, Removed files are gone."
-  },
-  {
-    "objectID": "qmd/unix.html#working-with-compressed-data",
-    "href": "qmd/unix.html#working-with-compressed-data",
-    "title": "Basic Unix Commands",
-    "section": "Working with Compressed Data",
-    "text": "Working with Compressed Data\nBioinformatics data is almost always compressed (.gz) to save space.\n\nzcat name.fastq.gz | head: View the top of a compressed fastq file.\ngzip file: Compresses a file and adds a .gz extension.\ngunzip file.gz: Decompresses the file."
-  },
-  {
-    "objectID": "qmd/unix.html#counting-and-searching",
-    "href": "qmd/unix.html#counting-and-searching",
-    "title": "Basic Unix Commands",
-    "section": "Counting and Searching",
-    "text": "Counting and Searching\n\nwc -l file.txt: count lines.\ngrep \"searchterm\" file.txt: find lines containing a word.\ngrep -c \"^@\" file.fastq: Count how many sequence headers (starting with @) are in a file."
+    "objectID": "index.html#introduction",
+    "href": "index.html#introduction",
+    "title": "Welcome",
+    "section": "Introduction",
+    "text": "Introduction\nThis page provides internal documentation for performing standard bioinformatics analyses at the lab, including setup, data preprocessing, and downstream workflows.\n\nNote: This document is for internal use only."
   },
   {
     "objectID": "index.html#getting-started",
@@ -161,116 +168,25 @@
     "text": "Contributing\nYour input is invaluable - whether it’s suggesting a new chart/analysis or reporting a bug, we welcome and greatly appreciate your feedback!\nFeel free to open a GitHub issue or contact us via inab.bioinformatics@lists.certh.gr."
   },
   {
-    "objectID": "qmd/data_cleaning.html#project-documentation-the-readme-file",
-    "href": "qmd/data_cleaning.html#project-documentation-the-readme-file",
-    "title": "Data & Metadata",
-    "section": "📄 Project Documentation (The README file)",
-    "text": "📄 Project Documentation (The README file)\nStandardized names are only useful if we know the context of the project. To prevent the loss of critical project details (who did what a year later), every project folder MUST contain a README file.\n\nRecommended Template\nCreate a file named README.txt in your main project folder and use this structure:\nProject: Short Title\nProject owner: Name\nBioinformatician: Name\nDate Started: YYYY-MM-DD\nStatus: In Progress / Completed / Archived\nExperimental Details: A brief description with the contex of the project (e.g. Comparisons, Groups)"
-  },
-  {
-    "objectID": "qmd/fastqc.html",
-    "href": "qmd/fastqc.html",
-    "title": "fastqc analysis",
-    "section": "",
-    "text": "Log in to the appropriate server:\no 160.40.71.4\nIdentify where your NGS results (.fastq files) are located:\no e.g., /mnt/new_home/stamatopoulos_research/2025_05_21_ERIC_study\nMove to the precmed working directory:\ncd /work/precmed/varCall/\nCreate a new analysis directory:\nmkdir run-2025-05-22-fastqc\nRun the fastqc (you have to update with the right path to your fastq files):\nfastqc /mnt/new_home/stamatopoulos_research/2025_05_21_ERIC_study/*.fastq.gz -o run-2025-05-22-fastqc/"
-  },
-  {
-    "objectID": "qmd/fastqc.html#how-to-run-fastqc",
-    "href": "qmd/fastqc.html#how-to-run-fastqc",
-    "title": "fastqc analysis in the computational infrastructure of INAB",
-    "section": "",
-    "text": "Steps to run fastqc analysis\n\nLog in to the appropriate server:\no 160.40.71.4\no 160.40.71.6\nIdentify where your NGS results (.fastq files) are located:\no e.g., /mnt/new_home/stamatopoulos_research/2025_05_21_ERIC_study\nMove to the precmed working directory:\no cd /work/precmed/varCall/\nCreate a new analysis directory:\no mkdir run-2025-05-22-fastqc\nRun the fastqc (you have to update with the right path to your fastq files):\nfastqc /mnt/new_home/stamatopoulos_research/2025_05_21_ERIC_study/*.fastq.gz\n-o run-2025-05-22-fastqc/"
-  },
-  {
-    "objectID": "qmd/fastqc.html#how-to-run-fastqc-in-the-computational-infrastructure-of-inab",
-    "href": "qmd/fastqc.html#how-to-run-fastqc-in-the-computational-infrastructure-of-inab",
-    "title": "fastqc analysis",
-    "section": "",
-    "text": "Log in to the appropriate server:\no 160.40.71.4\nIdentify where your NGS results (.fastq files) are located:\no e.g., /mnt/new_home/stamatopoulos_research/2025_05_21_ERIC_study\nMove to the precmed working directory:\ncd /work/precmed/varCall/\nCreate a new analysis directory:\nmkdir run-2025-05-22-fastqc\nRun the fastqc (you have to update with the right path to your fastq files):\nfastqc /mnt/new_home/stamatopoulos_research/2025_05_21_ERIC_study/*.fastq.gz -o run-2025-05-22-fastqc/"
-  },
-  {
-    "objectID": "qmd/fastqc.html#section",
-    "href": "qmd/fastqc.html#section",
-    "title": "fastqc analysis",
-    "section": "",
-    "text": "Steps to run fastqc analysis:\n\nLog in to the appropriate server:\no 160.40.71.4\no 160.40.71.6\nIdentify where your NGS results (.fastq files) are located:\no e.g., /mnt/new_home/stamatopoulos_research/2025_05_21_ERIC_study\nMove to the precmed working directory:\no cd /work/precmed/varCall/\nCreate a new analysis directory:\no mkdir run-2025-05-22-fastqc\nRun the fastqc (you have to update with the right path to your fastq files):\nfastqc /mnt/new_home/stamatopoulos_research/2025_05_21_ERIC_study/*.fastq.gz\n-o run-2025-05-22-fastqc/"
-  },
-  {
-    "objectID": "qmd/fastqc.html#running-fastqc-at-inab",
-    "href": "qmd/fastqc.html#running-fastqc-at-inab",
-    "title": "FastQC Analysis",
-    "section": "",
-    "text": "FastQC is the first step in any NGS pipeline. It provides a modular set of analyses which help you spot potential problems in your sequencing data (e.g., adapter contamination, low-quality bases).\n\n\n\nLog in to the server: Open your terminal and connect to the analysis node: ssh username@160.40.71.4\nLocate your data: Identify where your NGS results (.fastq.gz files) are located.\nExample path: /mnt/new_home/stamatopoulos_research/2025_05_21_ERIC_study\nMove to the working directory: We perform our analyses in the precmed volume: bash     cd /work/precmed/varCall/\nCreate an output directory: Always keep your results organized in a dated folder. bash     mkdir run-2025-05-22-fastqc\nRun FastQC: Use the wildcard *.fastq.gz to process all samples at once. Ensure you point the -o flag to your newly created directory. bash     fastqc /mnt/new_home/stamatopoulos_research/2025_05_21_ERIC_study/*.fastq.gz -o run-2025-05-22-fastqc/"
-  },
-  {
-    "objectID": "qmd/fastqc.html#interpreting-the-results",
-    "href": "qmd/fastqc.html#interpreting-the-results",
-    "title": "FastQC Analysis",
-    "section": "📊 Interpreting the Results",
-    "text": "📊 Interpreting the Results\nOnce the run finishes, FastQC will generate an .html report for every file. Open these in a web browser to check the following key modules:\n\n✅ Per base sequence quality: Most bases should be in the “green” zone (&gt; Q30). If the quality drops significantly at the end of the reads, you may need to perform trimming.\n✅ Adapter Content: If this module fails, it means Illumina adapter sequences were detected. You must remove these before alignment.\n✅ Sequence Duplication Levels: High duplication can indicate PCR over-amplification or low library complexity.\n\n\n[!TIP] MultiQC: If you have dozens of samples, looking at individual reports is slow. Use MultiQC to aggregate all FastQC reports into a single, easy-to-read summary page."
-  },
-  {
-    "objectID": "qmd/bcl_convert.html",
-    "href": "qmd/bcl_convert.html",
-    "title": "BCL Convert",
-    "section": "",
-    "text": "Log in to the appropriate server:\no 160.40.71.4\nIdentify where your NGS results (.bcl files and SampleSheet) are located:\no e.g., /mnt/new_home/illumina/nextseq2000/240412_VH00795_60_AAFLFTVM5\nCreate your SampleSheet.csv:\no Generally, a SampleSheet must include two sections: (1) the Settings Section and (2) the Data Section\no In the Data Section you can add a column named Sample_Project containing the name of the respective project for each sample. Sample_Project Optional can only contain alphanumeric characters, dashes, and underscores. Duplicate data strings with different cases (e.g., sampleProject and SampleProject) are not allowed. If these are used, analysis fails.\nMove to your working folder:\no In case there are only samples from your lab run:\ncd /mnt/new_home/stamatopoulos_research/\no In case there are samples from multiple labs run:\ncd /mnt/new_home/illumina_common_fastq\nUpload your SampleSheet.csv to your working folder:\no Any SFTP program (e.g., Bitvise SSH Client) can be used to transfer SampleSheet.csv. Just drag & drop the file from the left to the right window.\nDefine a distinctive name for the folder that will contain the bcl-convert results (e.g., 2025_05_20_ERIC_study) and use it as input after the –output-directory argument (check the command below)\nNow you can execute bcl-convert (version 00.000.000.3.10.12), based on the following command:\nnohup bcl-convert \\\n--bcl-input-directory /mnt/new_home/illumina/nextseq2000/240412_VH00795_60_AAFLFTVM5 \\\n--output-directory 2025_05_20_ERIC_study \\\n--sample-sheet SampleSheet.csv \\\n--no-lane-splitting true \\\n--bcl-sampleproject-subdirectories \\\n-–force &gt; ./2025_05_20_ERIC_study.log 2&gt;&1 &\nAfter the command for bcl-convert has run successfully, move your SampleSheet.csv to the output folder:\nmv SampleSheet.csv 2025_05_20_ERIC_study\nFiles older than 2 weeks will be automatically deleted from shared folders!\nFor this reason, if we have run the analysis in a shared folder such as /mnt/new_home/illumina_common_fastq, we should transfer the final files to our own subfolder, which will be located under our research group’s folder.\nrsync -r \\\n/mnt/new_home/illumina_common_fastq/2025_05_20_ERIC_study \\\n/mnt/new_home/stamatopoulos_research"
-  },
-  {
-    "objectID": "qmd/bcl_convert.html#how-to-run-fastqc-in-the-computational-infrastructure-of-inab",
-    "href": "qmd/bcl_convert.html#how-to-run-fastqc-in-the-computational-infrastructure-of-inab",
-    "title": "fastqc analysis",
-    "section": "",
-    "text": "Log in to the appropriate server:\no 160.40.71.4\nIdentify where your NGS results (.bcl files and SampleSheet) are located:\no e.g., /mnt/new_home/illumina/nextseq2000/240412_VH00795_60_AAFLFTVM5\nCreate your SampleSheet.csv:\no Generally, a SampleSheet must include two sections: (1) the Settings Section and (2) the Data Section\no In the Data Section you can add a column named Sample_Project containing the name of the respective project for each sample. Sample_Project Optional can only contain alphanumeric characters, dashes, and underscores. Duplicate data strings with different cases (e.g., sampleProject and SampleProject) are not allowed. If these are used, analysis fails.\nMove to your working folder:\no In case there are only samples from your lab run:\ncd /mnt/new_home/stamatopoulos_research/\no In case there are samples from multiple labs run:\ncd /mnt/new_home/illumina_common_fastq\nUpload your SampleSheet.csv to your working folder:\no Any SFTP program (π.χ., Bitvise SSH Client) can be used to transfer SampleSheet.csv. Just drag & drop the file from the left to the right window."
-  },
-  {
-    "objectID": "qmd/bcl_convert.html#how-to-run-bcl-convert-in-the-computational-infrastructure-of-inab",
-    "href": "qmd/bcl_convert.html#how-to-run-bcl-convert-in-the-computational-infrastructure-of-inab",
-    "title": "BCL Convert",
-    "section": "",
-    "text": "Log in to the appropriate server:\no 160.40.71.4\nIdentify where your NGS results (.bcl files and SampleSheet) are located:\no e.g., /mnt/new_home/illumina/nextseq2000/240412_VH00795_60_AAFLFTVM5\nCreate your SampleSheet.csv:\no Generally, a SampleSheet must include two sections: (1) the Settings Section and (2) the Data Section\no In the Data Section you can add a column named Sample_Project containing the name of the respective project for each sample. Sample_Project Optional can only contain alphanumeric characters, dashes, and underscores. Duplicate data strings with different cases (e.g., sampleProject and SampleProject) are not allowed. If these are used, analysis fails.\nMove to your working folder:\no In case there are only samples from your lab run:\ncd /mnt/new_home/stamatopoulos_research/\no In case there are samples from multiple labs run:\ncd /mnt/new_home/illumina_common_fastq\nUpload your SampleSheet.csv to your working folder:\no Any SFTP program (e.g., Bitvise SSH Client) can be used to transfer SampleSheet.csv. Just drag & drop the file from the left to the right window.\nDefine a distinctive name for the folder that will contain the bcl-convert results (e.g., 2025_05_20_ERIC_study) and use it as input after the –output-directory argument (check the command below)\nNow you can execute bcl-convert (version 00.000.000.3.10.12), based on the following command:\nnohup bcl-convert \\\n--bcl-input-directory /mnt/new_home/illumina/nextseq2000/240412_VH00795_60_AAFLFTVM5 \\\n--output-directory 2025_05_20_ERIC_study \\\n--sample-sheet SampleSheet.csv \\\n--no-lane-splitting true \\\n--bcl-sampleproject-subdirectories \\\n-–force &gt; ./2025_05_20_ERIC_study.log 2&gt;&1 &\nAfter the command for bcl-convert has run successfully, move your SampleSheet.csv to the output folder:\nmv SampleSheet.csv 2025_05_20_ERIC_study\nFiles older than 2 weeks will be automatically deleted from shared folders!\nFor this reason, if we have run the analysis in a shared folder such as /mnt/new_home/illumina_common_fastq, we should transfer the final files to our own subfolder, which will be located under our research group’s folder.\nrsync -r \\\n/mnt/new_home/illumina_common_fastq/2025_05_20_ERIC_study \\\n/mnt/new_home/stamatopoulos_research"
+    "objectID": "index.html#authors",
+    "href": "index.html#authors",
+    "title": "Welcome",
+    "section": "Authors",
+    "text": "Authors\n Natasa Anastasiadou  Nikos Pechlivanis  Sofoklis Keisaris"
   },
   {
     "objectID": "qmd/bases2fastq.html",
     "href": "qmd/bases2fastq.html",
     "title": "bases2fastq",
     "section": "",
-    "text": "Log in to the appropriate server:\no 160.40.71.4\nIdentify where your NGS results (.bcl files and SampleSheet) are located:\no e.g., /mnt/new_home/element/AV240301/20250131_AV240301_SARSDIAGNOSIS\nActivate conda environment with dependencies for bases2fastq:\nsource activate /apps/miniconda3/envs/bases2fastq_dependencies\nCreate your RunManifest.csv:\no Information for preparing the RunManifest file can be found here.\no You can add a column named Project containing the name of the respective project for each sample.\no In the Data Section you can add a column named Project containing the name of the respective project for each sample.\nProject can only contain alphanumeric characters, dashes, and underscores.\nMove to your working folder:\no In case there are only samples from your lab run:\ncd /mnt/new_home/stamatopoulos_research/\no In case there are samples from multiple labs run:\ncd /mnt/new_home/illumina_common_fastq\nUpload your RunManifest.csv to your working folder.\no Any SFTP program (e.g., Bitvise SSH Client) can be used to transfer RunManifest.csv. Just drag & drop the file from the left to the right window.\nDefine a distinctive name for the folder that will contain the bases2fastq results (e.g., 2025_05_21_ERIC_study) and use it as input (check the command below)\nNow you can execute bases2fastq (version 2.1.0.1522407762), based on the following command:\nnohup /apps/element/bases2fastq \\\n--num-threads 16 \\\n--group-fastq \\\n--legacy-fastq \\\n--run-manifest RunManifest.csv \\\n/mnt/new_home/element/AV240301/20250131_AV240301_SARSDIAGNOSIS/ \\\n2025_05_21_ERIC_study/ &gt; ./2025_05_21_ERIC_study.log 2&gt;&1 &\nAfter the command for bases2fastq has run successfully, move your RunManifest.csv to the output folder:\nmv RunManifest.csv 2025_05_21_ERIC_study\nFiles older than 2 weeks will be automatically deleted from shared folders!\nFor this reason, if we have run the analysis in a shared folder such as /mnt/new_home/element_common_fastq, we should transfer the final files to our own subfolder, which will be located under our research group’s folder.\nrsync -r \\\n2025_05_21_ERIC_study \\\n/mnt/new_home/stamatopoulos_research"
+    "text": "Note\n\n\n\n160.40.71.4 160.40.71.6 …\n\n\n\n\n\n\n\n\n\n\n\nNote\n\n\n\ne.g., /mnt/new_home/element/AV240301/20250131_AV240301_SARSDIAGNOSIS\n\n\n\n\n\nconda activate bases2fastq_dependencies\n\n\n\nInformation for preparing the RunManifest file can be found here.\n\n\n\n\n\n\nNote\n\n\n\nIn the Data Section you can add a column named Project containing the name of the respective project for each sample. Project can only contain alphanumeric characters, dashes, and underscores.\n\n\n\n\n\nIn case there are only samples from your lab run:\ncd /mnt/new_home/stamatopoulos_research/\nIn case there are samples from multiple labs run:\ncd /mnt/new_home/illumina_common_fastq\n\n\n\nAny SFTP program (e.g., Bitvise SSH Client) can be used to transfer RunManifest.csv. Just drag & drop the file from the left to the right window.\n\n\n\n\n\n\n\n\n\nNote\n\n\n\ne.g., 2025_05_21_ERIC_study\n\n\n\n\n\nnohup bases2fastq \\\n--num-threads 16 \\\n--group-fastq \\\n--legacy-fastq \\\n--run-manifest RunManifest.csv \\\n/mnt/new_home/element/AV240301/20250131_AV240301_SARSDIAGNOSIS/ \\\n2025_05_21_ERIC_study/ &gt; ./2025_05_21_ERIC_study.log 2&gt;&1 &\n\n\n\nmv RunManifest.csv 2025_05_21_ERIC_study\n\n\n\nFor this reason, if we have run the analysis in a shared folder such as /mnt/new_home/element_common_fastq, we should transfer the final files to our own subfolder, which will be located under our research group’s folder.\nrsync -r \\\n2025_05_21_ERIC_study \\\n/mnt/new_home/stamatopoulos_research"
   },
   {
     "objectID": "qmd/bases2fastq.html#how-to-run-bases2fastq-in-the-computational-infrastructure-of-inab",
     "href": "qmd/bases2fastq.html#how-to-run-bases2fastq-in-the-computational-infrastructure-of-inab",
     "title": "bases2fastq",
     "section": "",
-    "text": "Log in to the appropriate server:\no 160.40.71.4\nIdentify where your NGS results (.bcl files and SampleSheet) are located:\no e.g., /mnt/new_home/element/AV240301/20250131_AV240301_SARSDIAGNOSIS\nActivate conda environment with dependencies for bases2fastq:\nsource activate /apps/miniconda3/envs/bases2fastq_dependencies\nCreate your RunManifest.csv:\no Information for preparing the RunManifest file can be found here.\no You can add a column named Project containing the name of the respective project for each sample.\no In the Data Section you can add a column named Project containing the name of the respective project for each sample.\nProject can only contain alphanumeric characters, dashes, and underscores.\nMove to your working folder:\no In case there are only samples from your lab run:\ncd /mnt/new_home/stamatopoulos_research/\no In case there are samples from multiple labs run:\ncd /mnt/new_home/illumina_common_fastq\nUpload your RunManifest.csv to your working folder.\no Any SFTP program (e.g., Bitvise SSH Client) can be used to transfer RunManifest.csv. Just drag & drop the file from the left to the right window.\nDefine a distinctive name for the folder that will contain the bases2fastq results (e.g., 2025_05_21_ERIC_study) and use it as input (check the command below)\nNow you can execute bases2fastq (version 2.1.0.1522407762), based on the following command:\nnohup /apps/element/bases2fastq \\\n--num-threads 16 \\\n--group-fastq \\\n--legacy-fastq \\\n--run-manifest RunManifest.csv \\\n/mnt/new_home/element/AV240301/20250131_AV240301_SARSDIAGNOSIS/ \\\n2025_05_21_ERIC_study/ &gt; ./2025_05_21_ERIC_study.log 2&gt;&1 &\nAfter the command for bases2fastq has run successfully, move your RunManifest.csv to the output folder:\nmv RunManifest.csv 2025_05_21_ERIC_study\nFiles older than 2 weeks will be automatically deleted from shared folders!\nFor this reason, if we have run the analysis in a shared folder such as /mnt/new_home/element_common_fastq, we should transfer the final files to our own subfolder, which will be located under our research group’s folder.\nrsync -r \\\n2025_05_21_ERIC_study \\\n/mnt/new_home/stamatopoulos_research"
-  },
-  {
-    "objectID": "qmd/rnaseq.html",
-    "href": "qmd/rnaseq.html",
-    "title": "RNAseq analysis",
-    "section": "",
-    "text": "Log in to the appropriate server:\no 160.40.71.4\nIdentify where your NGS results (.fastq files) are located:\no e.g., /mnt/new_home/stamatopoulos_research/2025_05_21_ERIC_study\nMove to the your working directory:\ncd /work/folder_of_each_user\nCreate a new analysis directory:\nmkdir RNAseq_analysis_2025_05_21\nMove to the your new analysis directory:\ncd /work/RNAseq_analysis_2025_05_21\nDownload script to your analysis directory\nwget https://raw.githubusercontent.com/natanast/RNAseq_analysis/main/bash/star.sh\nwget https://raw.githubusercontent.com/natanast/RNAseq_analysis/main/bash/runSTAR.sh \nCreate a SampleList (you have to update with the right path to your fastq files), for example:\nls -la /mnt/new_home/stamatopoulos_research/RNAseq_2025_05_21 | awk '{print $9}' | awk -F \"_R\" '{print $1}' | sort | uniq &gt; SampleList\nRemove samples that should not be analyzed:\nnano SampleList\nIn order to edit the SampleList use the following:\no Delete button: Removes one letter\no Ctrl + k: Removes a whole row\no Ctrl + o and Enter: Saves the modified SampleList\no Ctrl + x: Exits and returns to the terminal\nRun the analysis (you have to update with the right path):\nnohup bash runSTAR.sh \\\n/mnt/new_home/stamatopoulos_research/RNAseq_2025_05_21 \\\nSampleList \\\n/mnt/new_home/bio_tmp/HSapRefData/hg38/gencode/star \\\n/mnt/new_home/bio_tmp/HSapRefData/hg38/gencode/gencode.v47.primary_assembly.basic.annotation.gtf \\\n16 \\\n&\nAfter the analysis is completed, move your folder from /work to /mnt/new_home\ncd ..\nrsync -r \\\nRNAseq_analysis_2025_05_21 \\\n/mnt/new_home/stamatopoulos_research"
-  },
-  {
-    "objectID": "qmd/rnaseq.html#how-to-run-rnaseq-analysis-in-the-computational-infrastructure-of-inab",
-    "href": "qmd/rnaseq.html#how-to-run-rnaseq-analysis-in-the-computational-infrastructure-of-inab",
-    "title": "RNAseq analysis",
-    "section": "",
-    "text": "Log in to the appropriate server:\no 160.40.71.4\nIdentify where your NGS results (.fastq files) are located:\no e.g., /mnt/new_home/stamatopoulos_research/2025_05_21_ERIC_study\nMove to the your working directory:\ncd /work/folder_of_each_user\nCreate a new analysis directory:\nmkdir RNAseq_analysis_2025_05_21\nMove to the your new analysis directory:\ncd /work/RNAseq_analysis_2025_05_21\nDownload script to your analysis directory\nwget https://raw.githubusercontent.com/natanast/RNAseq_analysis/main/bash/star.sh\nwget https://raw.githubusercontent.com/natanast/RNAseq_analysis/main/bash/runSTAR.sh \nCreate a SampleList (you have to update with the right path to your fastq files), for example:\nls -la /mnt/new_home/stamatopoulos_research/RNAseq_2025_05_21 | awk '{print $9}' | awk -F \"_R\" '{print $1}' | sort | uniq &gt; SampleList\nRemove samples that should not be analyzed:\nnano SampleList\nIn order to edit the SampleList use the following:\no Delete button: Removes one letter\no Ctrl + k: Removes a whole row\no Ctrl + o and Enter: Saves the modified SampleList\no Ctrl + x: Exits and returns to the terminal\nRun the analysis (you have to update with the right path):\nnohup bash runSTAR.sh \\\n/mnt/new_home/stamatopoulos_research/RNAseq_2025_05_21 \\\nSampleList \\\n/mnt/new_home/bio_tmp/HSapRefData/hg38/gencode/star \\\n/mnt/new_home/bio_tmp/HSapRefData/hg38/gencode/gencode.v47.primary_assembly.basic.annotation.gtf \\\n16 \\\n&\nAfter the analysis is completed, move your folder from /work to /mnt/new_home\ncd ..\nrsync -r \\\nRNAseq_analysis_2025_05_21 \\\n/mnt/new_home/stamatopoulos_research"
-  },
-  {
-    "objectID": "qmd/rnaseq.html#steps-to-run-fastqc-analysis",
-    "href": "qmd/rnaseq.html#steps-to-run-fastqc-analysis",
-    "title": "How to run RNAseq analysis in the computational infrastructure of INAB",
-    "section": "",
-    "text": "Log in to the appropriate server:\no 160.40.71.4"
-  },
-  {
-    "objectID": "qmd/rnaseq.html#how-to-run-rnaseq-analyis-in-the-computational-infrastructure-of-inab",
-    "href": "qmd/rnaseq.html#how-to-run-rnaseq-analyis-in-the-computational-infrastructure-of-inab",
-    "title": "RNAseq analysis",
-    "section": "",
-    "text": "Log in to the appropriate server:\no 160.40.71.4\nIdentify where your NGS results (.fastq files) are located:\no e.g., /mnt/new_home/stamatopoulos_research/2025_05_21_ERIC_study\nMove to the your working directory:\ncd /work/folder_of_each_user\nCreate a new analysis directory:\nmkdir RNAseq_analysis_2025_05_21\nMove to the your new analysis directory:\ncd /work/RNAseq_analysis_2025_05_21\nDownload script to your analysis directory\nwget https://raw.githubusercontent.com/natanast/RNAseq_analysis/main/bash/star.sh\nwget https://raw.githubusercontent.com/natanast/RNAseq_analysis/main/bash/runSTAR.sh \nCreate a SampleList (you have to update with the right path to your fastq files), for example:\nls -la /mnt/new_home/stamatopoulos_research/RNAseq_2025_05_21 | awk '{print $9}' | awk -F \"_R\" '{print $1}' | sort | uniq &gt; SampleList\nRemove samples that should not be analyzed:\nnano SampleList\nIn order to edit the SampleList use the following:\no Delete button: Removes one letter\no Ctrl + k: Removes a whole row\no Ctrl + o and Enter: Saves the modified SampleList\no Ctrl + x: Exits and returns to the terminal\nRun the analysis (you have to update with the right path):\nnohup bash runSTAR.sh \\\n/mnt/new_home/stamatopoulos_research/RNAseq_2025_05_21 \\\nSampleList \\\n/mnt/new_home/bio_tmp/HSapRefData/hg38/gencode/star \\\n/mnt/new_home/bio_tmp/HSapRefData/hg38/gencode/gencode.v47.primary_assembly.basic.annotation.gtf \\\n16 \\\n&\nAfter the analysis is completed, move your folder from /work to /mnt/new_home\ncd ..\nrsync -r \\\nRNAseq_analysis_2025_05_21 \\\n/mnt/new_home/stamatopoulos_research"
+    "text": "Note\n\n\n\n160.40.71.4 160.40.71.6 …\n\n\n\n\n\n\n\n\n\n\n\nNote\n\n\n\ne.g., /mnt/new_home/element/AV240301/20250131_AV240301_SARSDIAGNOSIS\n\n\n\n\n\nconda activate bases2fastq_dependencies\n\n\n\nInformation for preparing the RunManifest file can be found here.\n\n\n\n\n\n\nNote\n\n\n\nIn the Data Section you can add a column named Project containing the name of the respective project for each sample. Project can only contain alphanumeric characters, dashes, and underscores.\n\n\n\n\n\nIn case there are only samples from your lab run:\ncd /mnt/new_home/stamatopoulos_research/\nIn case there are samples from multiple labs run:\ncd /mnt/new_home/illumina_common_fastq\n\n\n\nAny SFTP program (e.g., Bitvise SSH Client) can be used to transfer RunManifest.csv. Just drag & drop the file from the left to the right window.\n\n\n\n\n\n\n\n\n\nNote\n\n\n\ne.g., 2025_05_21_ERIC_study\n\n\n\n\n\nnohup bases2fastq \\\n--num-threads 16 \\\n--group-fastq \\\n--legacy-fastq \\\n--run-manifest RunManifest.csv \\\n/mnt/new_home/element/AV240301/20250131_AV240301_SARSDIAGNOSIS/ \\\n2025_05_21_ERIC_study/ &gt; ./2025_05_21_ERIC_study.log 2&gt;&1 &\n\n\n\nmv RunManifest.csv 2025_05_21_ERIC_study\n\n\n\nFor this reason, if we have run the analysis in a shared folder such as /mnt/new_home/element_common_fastq, we should transfer the final files to our own subfolder, which will be located under our research group’s folder.\nrsync -r \\\n2025_05_21_ERIC_study \\\n/mnt/new_home/stamatopoulos_research"
   },
   {
     "objectID": "qmd/ena_deposit.html",
@@ -336,38 +252,31 @@
     "text": "Summarized Steps for Success\n\nEstablish FTP connection with ENA.\nUpload the fastq files (Drag’n’Drop)\nLogin to Webin Submission Portal\nUpload manifest.tsv through “Submit Reads”\nUpload metadata.tsv through “Register Samples”\nWin"
   },
   {
-    "objectID": "qmd/merge_lanes.html",
-    "href": "qmd/merge_lanes.html",
-    "title": "Merge lanes",
+    "objectID": "qmd/fastqc.html",
+    "href": "qmd/fastqc.html",
+    "title": "fastqc analysis",
     "section": "",
-    "text": "Log in to the appropriate server:\no 160.40.71.4\nIdentify where your NGS results (.fastq files) are located:\no e.g., /mnt/new_home/stamatopoulos_research/date_study\nMove to the your working directory:\ncd /work/folder_of_each_user\nCreate a new analysis directory:\nmkdir mergeLanes_2025_05_21\nMove to the your new analysis directory:\ncd /work/mergeLanes_2025_05_21\nDownload script to your analysis directory\nwget https://raw.githubusercontent.com/natanast/RNAseq_analysis/main/merge-lanes/mergeLanes.sh\nwget https://raw.githubusercontent.com/natanast/RNAseq_analysis/main/merge-lanes/runMERGELANES.sh\nCreate a SampleList (you have to update with the right path to your fastq files), for example:\nls -la /mnt/new_home/stamatopoulos_research/date_study | awk '{print $9}' | awk -F \"_L\" '{print $1}' | sort | uniq &gt; SampleList\nRemove samples that should not be analyzed:\nnano SampleList\nIn order to edit the SampleList use the following:\no Delete button: Removes one letter\no Ctrl + k: Removes a whole row\no Ctrl + o and Enter: Saves the modified SampleList\no Ctrl + x: Exits and returns to the terminal\nRun the analysis (you have to update with the right path):\nnohup bash runMERGELANES.sh \\\n/mnt/new_home/stamatopoulos_research/date_study \\\nSampleList \\    \n&\nAfter the analysis is completed, move your folder from /work to /mnt/new_home\ncd ..\nrsync -r \\\nmergeLanes_2025_05_21 \\\n/mnt/new_home/stamatopoulos_research"
+    "text": "Log in to the appropriate server:\no 160.40.71.4\nIdentify where your NGS results (.fastq files) are located:\no e.g., /mnt/new_home/stamatopoulos_research/2025_05_21_ERIC_study\nMove to the precmed working directory:\ncd /work/precmed/varCall/\nCreate a new analysis directory:\nmkdir run-2025-05-22-fastqc\nRun the fastqc (you have to update with the right path to your fastq files):\nfastqc /mnt/new_home/stamatopoulos_research/2025_05_21_ERIC_study/*.fastq.gz -o run-2025-05-22-fastqc/"
   },
   {
-    "objectID": "qmd/merge_lanes.html#how-to-run-merge-lanes-in-the-computational-infrastructure-of-inab",
-    "href": "qmd/merge_lanes.html#how-to-run-merge-lanes-in-the-computational-infrastructure-of-inab",
-    "title": "Merge lanes",
+    "objectID": "qmd/fastqc.html#how-to-run-fastqc-in-the-computational-infrastructure-of-inab",
+    "href": "qmd/fastqc.html#how-to-run-fastqc-in-the-computational-infrastructure-of-inab",
+    "title": "fastqc analysis",
     "section": "",
-    "text": "Log in to the appropriate server:\no 160.40.71.4\nIdentify where your NGS results (.fastq files) are located:\no e.g., /mnt/new_home/stamatopoulos_research/date_study\nMove to the your working directory:\ncd /work/folder_of_each_user\nCreate a new analysis directory:\nmkdir mergeLanes_2025_05_21\nMove to the your new analysis directory:\ncd /work/mergeLanes_2025_05_21\nDownload script to your analysis directory\nwget https://raw.githubusercontent.com/natanast/RNAseq_analysis/main/merge-lanes/mergeLanes.sh\nwget https://raw.githubusercontent.com/natanast/RNAseq_analysis/main/merge-lanes/runMERGELANES.sh\nCreate a SampleList (you have to update with the right path to your fastq files), for example:\nls -la /mnt/new_home/stamatopoulos_research/date_study | awk '{print $9}' | awk -F \"_L\" '{print $1}' | sort | uniq &gt; SampleList\nRemove samples that should not be analyzed:\nnano SampleList\nIn order to edit the SampleList use the following:\no Delete button: Removes one letter\no Ctrl + k: Removes a whole row\no Ctrl + o and Enter: Saves the modified SampleList\no Ctrl + x: Exits and returns to the terminal\nRun the analysis (you have to update with the right path):\nnohup bash runMERGELANES.sh \\\n/mnt/new_home/stamatopoulos_research/date_study \\\nSampleList \\    \n&\nAfter the analysis is completed, move your folder from /work to /mnt/new_home\ncd ..\nrsync -r \\\nmergeLanes_2025_05_21 \\\n/mnt/new_home/stamatopoulos_research"
+    "text": "Log in to the appropriate server:\no 160.40.71.4\nIdentify where your NGS results (.fastq files) are located:\no e.g., /mnt/new_home/stamatopoulos_research/2025_05_21_ERIC_study\nMove to the precmed working directory:\ncd /work/precmed/varCall/\nCreate a new analysis directory:\nmkdir run-2025-05-22-fastqc\nRun the fastqc (you have to update with the right path to your fastq files):\nfastqc /mnt/new_home/stamatopoulos_research/2025_05_21_ERIC_study/*.fastq.gz -o run-2025-05-22-fastqc/"
   },
   {
-    "objectID": "qmd/ergo.html",
-    "href": "qmd/ergo.html",
-    "title": "ERGO-ii analysis",
+    "objectID": "qmd/rnaseq.html",
+    "href": "qmd/rnaseq.html",
+    "title": "RNAseq analysis",
     "section": "",
-    "text": "Follow instructions here: The Comprehensive R Archive Network. If you cannot download R on your local machine please contact inab-support@certh.gr.\n\n\n\nFollow instructions here: RStudio Desktop - Posit (2: Install RStudio). If you cannot download R on your local machine please contact inab-support@certh.gr.\n\n\n\n\nYour data should be organized with the following format:\nmy_data/\n├─ Group1/\n│  ├─ Clonotypes/\n│  │  ├─ Clonotypes_sample1.txt\n│  │  ├─ Clonotypes_sample2.txt\n│  │  ├─ ...\n│  ├─ peptides.xlsx\n├─ Group2/\n│  ├─ Clonotypes/\n│  │  ├─ ...\n│  ├─ peptides.xlsx\n├─ .../\n│  ├─ .../\n│  ├─ ...\n\n\n\nThe peptides file is a 3 – column table containing the following information:\n\n\n\nHLA allele\nPeptide\nSample\n\n\n\n\nHLA-A*02:02\nAMAIAVPANV\nSample1\n\n\nHLA-A*02:02\nMAIAVPANV\nSample1\n\n\nHLA-A*03:01\nAIAVPANVY\nSample2\n\n\nHLA-C*07:01\nQSYSPPFSF\nSample3"
+    "text": "Log in to the appropriate server:\no 160.40.71.4\nIdentify where your NGS results (.fastq files) are located:\no e.g., /mnt/new_home/stamatopoulos_research/2025_05_21_ERIC_study\nMove to the your working directory:\ncd /work/folder_of_each_user\nCreate a new analysis directory:\nmkdir RNAseq_analysis_2025_05_21\nMove to the your new analysis directory:\ncd /work/RNAseq_analysis_2025_05_21\nDownload script to your analysis directory\nwget https://raw.githubusercontent.com/natanast/RNAseq_analysis/main/bash/star.sh\nwget https://raw.githubusercontent.com/natanast/RNAseq_analysis/main/bash/runSTAR.sh \nCreate a SampleList (you have to update with the right path to your fastq files), for example:\nls -la /mnt/new_home/stamatopoulos_research/RNAseq_2025_05_21 | awk '{print $9}' | awk -F \"_R\" '{print $1}' | sort | uniq &gt; SampleList\nRemove samples that should not be analyzed:\nnano SampleList\nIn order to edit the SampleList use the following:\no Delete button: Removes one letter\no Ctrl + k: Removes a whole row\no Ctrl + o and Enter: Saves the modified SampleList\no Ctrl + x: Exits and returns to the terminal\nRun the analysis (you have to update with the right path):\nnohup bash runSTAR.sh \\\n/mnt/new_home/stamatopoulos_research/RNAseq_2025_05_21 \\\nSampleList \\\n/mnt/new_home/bio_tmp/HSapRefData/hg38/gencode/star \\\n/mnt/new_home/bio_tmp/HSapRefData/hg38/gencode/gencode.v47.primary_assembly.basic.annotation.gtf \\\n16 \\\n&\nAfter the analysis is completed, move your folder from /work to /mnt/new_home\ncd ..\nrsync -r \\\nRNAseq_analysis_2025_05_21 \\\n/mnt/new_home/stamatopoulos_research"
   },
   {
-    "objectID": "qmd/ergo.html#how-to-run-ergo-ii-anlaysis-in-the-computational-infrastructure-of-inab",
-    "href": "qmd/ergo.html#how-to-run-ergo-ii-anlaysis-in-the-computational-infrastructure-of-inab",
-    "title": "ERGO-ii analysis",
+    "objectID": "qmd/rnaseq.html#how-to-run-rnaseq-analysis-in-the-computational-infrastructure-of-inab",
+    "href": "qmd/rnaseq.html#how-to-run-rnaseq-analysis-in-the-computational-infrastructure-of-inab",
+    "title": "RNAseq analysis",
     "section": "",
-    "text": "Follow instructions here: The Comprehensive R Archive Network. If you cannot download R on your local machine please contact inab-support@certh.gr.\n\n\n\nFollow instructions here: RStudio Desktop - Posit (2: Install RStudio). If you cannot download R on your local machine please contact inab-support@certh.gr.\n\n\n\n\nYour data should be organized with the following format:\nmy_data/\n├─ Group1/\n│  ├─ Clonotypes/\n│  │  ├─ Clonotypes_sample1.txt\n│  │  ├─ Clonotypes_sample2.txt\n│  │  ├─ ...\n│  ├─ peptides.xlsx\n├─ Group2/\n│  ├─ Clonotypes/\n│  │  ├─ ...\n│  ├─ peptides.xlsx\n├─ .../\n│  ├─ .../\n│  ├─ ...\n\n\n\nThe peptides file is a 3 – column table containing the following information:\n\n\n\nHLA allele\nPeptide\nSample\n\n\n\n\nHLA-A*02:02\nAMAIAVPANV\nSample1\n\n\nHLA-A*02:02\nMAIAVPANV\nSample1\n\n\nHLA-A*03:01\nAIAVPANVY\nSample2\n\n\nHLA-C*07:01\nQSYSPPFSF\nSample3"
-  },
-  {
-    "objectID": "qmd/ergo.html#steps",
-    "href": "qmd/ergo.html#steps",
-    "title": "ERGO-ii analysis",
-    "section": "Steps",
-    "text": "Steps\n\nCreating ERGO-II input files\n\nOpen RStudio\nSet up your working directory – find the folder where your data are located and choose “Set as Working Directory”\n\n\n\nDownload the necessary R scripts from here: ERGO-helpers/R at main · BiodataAnalysisGroup/ERGO-helpers and place them into your working directory.\nOpen the 01.build_ergo_inputs.R and update it with the right path of the data to run first (lines 14 + 15, remove the others if necessary).\nProvide an output folder name of preference (line 17)\nRun the script\nWhen complete a folder will be created with the following structure:\nmy_output_folder/\n├─ ergo-ii-input_sample1.csv\n├─ ergo-ii-input_sample2.csv\n├─ ...\n\n\n\nSteps to run ERGO:\n\nLog in to the appropriate server:\no 160.40.71.4\nMove to the your working directory:\ncd /work/folder_of_each_user\nCreate a new analysis directory:\nmkdir ergo-ii_2026-01-07\nMove to the your new analysis directory:\ncd /work/ergo-ii_2026-01-07\nDownload script to your analysis directory\ngit clone https://github.com/BiodataAnalysisGroup/ERGO-helpers.git\nMove to the your new analysis directory:\ncd ERGO-helpers/ERGO-II\nCreate a folder named data and upload your data there:\nmkdir data\nCreate a sample list:\nls -la data/ | awk '{print $9}' | awk -F \"_\" '{print $2}' | awk -F \".\" '{print $1}' | sort | uniq &gt; SampleList\nRemove samples that should not be analyzed:\nnano SampleList\nIn order to edit the SampleList use the following:\no Delete button: Removes one letter\no Ctrl + k: Removes a whole row\no Ctrl + o and Enter: Saves the modified SampleList\no Ctrl + x: Exits and returns to the terminal\nRun the analysis (you have to update with the right path):\nbash runERGO-II.sh &gt; run.sh\nnohup bash run.sh &\nWhen complete score files will be created inside the folder you have uploaded.\n\n\n\nFiltering ERGO-II results\n\nGo back to your working directory (RStudio).\nSet it as your Working Directory (same steps as before).\nCreate a new folder (e.g. ergo-ii_scores) and download the resulted scores files from the server.\nOpen the 02.filter_ergo_scores.R and update it with the right path of the data to run first (lines 9 + 10, remove the others if necessary).\nProvide an output folder name of preference (line 12).\nRun the script."
+    "text": "Log in to the appropriate server:\no 160.40.71.4\nIdentify where your NGS results (.fastq files) are located:\no e.g., /mnt/new_home/stamatopoulos_research/2025_05_21_ERIC_study\nMove to the your working directory:\ncd /work/folder_of_each_user\nCreate a new analysis directory:\nmkdir RNAseq_analysis_2025_05_21\nMove to the your new analysis directory:\ncd /work/RNAseq_analysis_2025_05_21\nDownload script to your analysis directory\nwget https://raw.githubusercontent.com/natanast/RNAseq_analysis/main/bash/star.sh\nwget https://raw.githubusercontent.com/natanast/RNAseq_analysis/main/bash/runSTAR.sh \nCreate a SampleList (you have to update with the right path to your fastq files), for example:\nls -la /mnt/new_home/stamatopoulos_research/RNAseq_2025_05_21 | awk '{print $9}' | awk -F \"_R\" '{print $1}' | sort | uniq &gt; SampleList\nRemove samples that should not be analyzed:\nnano SampleList\nIn order to edit the SampleList use the following:\no Delete button: Removes one letter\no Ctrl + k: Removes a whole row\no Ctrl + o and Enter: Saves the modified SampleList\no Ctrl + x: Exits and returns to the terminal\nRun the analysis (you have to update with the right path):\nnohup bash runSTAR.sh \\\n/mnt/new_home/stamatopoulos_research/RNAseq_2025_05_21 \\\nSampleList \\\n/mnt/new_home/bio_tmp/HSapRefData/hg38/gencode/star \\\n/mnt/new_home/bio_tmp/HSapRefData/hg38/gencode/gencode.v47.primary_assembly.basic.annotation.gtf \\\n16 \\\n&\nAfter the analysis is completed, move your folder from /work to /mnt/new_home\ncd ..\nrsync -r \\\nRNAseq_analysis_2025_05_21 \\\n/mnt/new_home/stamatopoulos_research"
   }
 ]

@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.8.25">
+<meta name="generator" content="quarto-1.8.26">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -72,7 +72,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-587c61ba64f3a5504c4d52d930310e48.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="../site_libs/bootstrap/bootstrap-9fe5468cdd8f08779a8ab468245e8356.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
@@ -114,8 +114,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a href="../index.html" class="navbar-brand navbar-brand-logo">
-    </a>
     <a class="navbar-brand" href="../index.html">
     <span class="navbar-title">INAB In-House Analysis</span>
     </a>
@@ -218,44 +216,109 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="anchored" data-anchor-id="how-to-run-bases2fastq-in-the-computational-infrastructure-of-inab">How to run <strong>bases2fastq</strong> in the computational infrastructure of INAB</h2>
 <section id="steps-to-run-bases2fastq-analysis" class="level3">
 <h3 class="anchored" data-anchor-id="steps-to-run-bases2fastq-analysis">Steps to run bases2fastq analysis:</h3>
-<ol type="1">
-<li><p>Log in to the appropriate server:</p>
-<p>o 160.40.71.4</p></li>
-<li><p>Identify where your NGS results (.bcl files and SampleSheet) are located:</p>
-<p>o e.g., /mnt/new_home/element/AV240301/20250131_AV240301_SARSDIAGNOSIS</p></li>
-<li><p>Activate conda environment with dependencies for bases2fastq:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="bu">source</span> activate /apps/miniconda3/envs/bases2fastq_dependencies</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div></li>
-<li><p>Create your RunManifest.csv:</p>
-<p>o Information for preparing the RunManifest file can be found <a href="https://docs.elembio.io/docs/run-manifest/">here</a>.</p>
-<p>o You can add a column named Project containing the name of the respective project for each sample.</p>
-<p>o In the Data Section you can add a column named <strong>Project</strong> containing the name of the respective project for each sample.</p>
-<p>Project can only contain alphanumeric characters, dashes, and underscores.</p></li>
-<li><p>Move to your working folder:</p>
-<p>o In case there are <u>only samples from your lab</u> run:</p>
+<section id="log-in-to-the-appropriate-server" class="level4">
+<h4 class="anchored" data-anchor-id="log-in-to-the-appropriate-server">1. Log in to the appropriate server:</h4>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>160.40.71.4 160.40.71.6 …</p>
+</div>
+</div>
+</section>
+<section id="identify-where-your-ngs-results-.bcl-files-and-samplesheet-are-located" class="level4">
+<h4 class="anchored" data-anchor-id="identify-where-your-ngs-results-.bcl-files-and-samplesheet-are-located">2. Identify where your NGS results (.bcl files and SampleSheet) are located:</h4>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>e.g., /mnt/new_home/element/AV240301/20250131_AV240301_SARSDIAGNOSIS</p>
+</div>
+</div>
+</section>
+<section id="activate-conda-environment-with-dependencies-for-bases2fastq" class="level4">
+<h4 class="anchored" data-anchor-id="activate-conda-environment-with-dependencies-for-bases2fastq">3. Activate conda environment with dependencies for bases2fastq:</h4>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> activate bases2fastq_dependencies</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="create-your-runmanifest.csv" class="level4">
+<h4 class="anchored" data-anchor-id="create-your-runmanifest.csv">4. Create your <code>RunManifest.csv</code>:</h4>
+<p>Information for preparing the RunManifest file can be found <a href="https://docs.elembio.io/docs/run-manifest/">here</a>.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>In the Data Section you can add a column named <strong>Project</strong> containing the name of the respective project for each sample. Project can only contain alphanumeric characters, dashes, and underscores.</p>
+</div>
+</div>
+</section>
+<section id="move-to-your-working-folder" class="level4">
+<h4 class="anchored" data-anchor-id="move-to-your-working-folder">5. Move to your working folder:</h4>
+<p>In case there are <u>only samples from your lab</u> run:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> /mnt/new_home/stamatopoulos_research/</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>o In case there are <u>samples from multiple labs</u> run:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> /mnt/new_home/illumina_common_fastq</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div></li>
-<li><p>Upload your RunManifest.csv to your working folder.</p>
-<p>o Any SFTP program (e.g., Bitvise SSH Client) can be used to transfer RunManifest.csv. Just drag &amp; drop the file from the left to the right window.</p></li>
-<li><p>Define a distinctive name for the folder that will contain the bases2fastq results (e.g., 2025_05_21_ERIC_study) and use it as input (check the command below)</p></li>
-<li><p>Now you can execute bases2fastq (version 2.1.0.1522407762), based on the following command:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">nohup</span> /apps/element/bases2fastq <span class="dt">\</span></span>
+<p>In case there are <u>samples from multiple labs</u> run:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> /mnt/new_home/illumina_common_fastq</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="upload-your-runmanifest.csv-to-your-working-folder." class="level4">
+<h4 class="anchored" data-anchor-id="upload-your-runmanifest.csv-to-your-working-folder.">6. Upload your <code>RunManifest.csv</code> to your working folder.</h4>
+<p>Any SFTP program (e.g., Bitvise SSH Client) can be used to transfer <code>RunManifest.csv</code>. Just drag &amp; drop the file from the left to the right window.</p>
+</section>
+<section id="define-a-distinctive-name-for-the-folder-that-will-contain-the-bases2fastq-results-and-use-it-as-input-see-step-8." class="level4">
+<h4 class="anchored" data-anchor-id="define-a-distinctive-name-for-the-folder-that-will-contain-the-bases2fastq-results-and-use-it-as-input-see-step-8.">7. Define a distinctive name for the folder that will contain the bases2fastq results and use it as input (see Step 8.)</h4>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>e.g., 2025_05_21_ERIC_study</p>
+</div>
+</div>
+</section>
+<section id="now-you-can-execute-bases2fastq-version-2.1.0.1522407762-based-on-the-following-command" class="level4">
+<h4 class="anchored" data-anchor-id="now-you-can-execute-bases2fastq-version-2.1.0.1522407762-based-on-the-following-command">8. Now you can execute bases2fastq (version 2.1.0.1522407762), based on the following command:</h4>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">nohup</span> bases2fastq <span class="dt">\</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>--num-threads 16 <span class="dt">\</span></span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>--group-fastq <span class="dt">\</span></span>
 <span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>--legacy-fastq <span class="dt">\</span></span>
 <span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>--run-manifest RunManifest.csv <span class="dt">\</span></span>
 <span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>/mnt/new_home/element/AV240301/20250131_AV240301_SARSDIAGNOSIS/ <span class="dt">\</span></span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>2025_05_21_ERIC_study/ <span class="op">&gt;</span> ./2025_05_21_ERIC_study.log <span class="dv">2</span><span class="op">&gt;&amp;</span><span class="dv">1</span> <span class="kw">&amp;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div></li>
-<li><p>After the command for bases2fastq has run successfully, move your RunManifest.csv to the output folder:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mv</span> RunManifest.csv 2025_05_21_ERIC_study</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div></li>
-<li><p>Files older than <strong>2 weeks</strong> will be automatically <strong>deleted</strong> from shared folders!</p>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>2025_05_21_ERIC_study/ <span class="op">&gt;</span> ./2025_05_21_ERIC_study.log <span class="dv">2</span><span class="op">&gt;&amp;</span><span class="dv">1</span> <span class="kw">&amp;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="after-the-command-for-bases2fastq-has-run-successfully-move-your-runmanifest.csv-to-the-output-folder" class="level4">
+<h4 class="anchored" data-anchor-id="after-the-command-for-bases2fastq-has-run-successfully-move-your-runmanifest.csv-to-the-output-folder">9. After the command for bases2fastq has run successfully, move your <code>RunManifest.csv</code> to the output folder:</h4>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mv</span> RunManifest.csv 2025_05_21_ERIC_study</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="files-older-than-2-weeks-will-be-automatically-deleted-from-shared-folders" class="level4">
+<h4 class="anchored" data-anchor-id="files-older-than-2-weeks-will-be-automatically-deleted-from-shared-folders">10. <strong>Files older than 2 weeks</strong> will be automatically <strong>deleted</strong> from shared folders!</h4>
 <p>For this reason, if we have run the analysis in a shared folder such as <em>/mnt/new_home/element_common_fastq</em>, we should transfer the final files to our <strong>own</strong> subfolder, which will be located under our research group’s folder.</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rsync</span> <span class="at">-r</span> <span class="dt">\</span></span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>2025_05_21_ERIC_study <span class="dt">\</span></span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>/mnt/new_home/stamatopoulos_research</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div></li>
-</ol>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>/mnt/new_home/stamatopoulos_research</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 
 
+</section>
 </section>
 </section>
 
