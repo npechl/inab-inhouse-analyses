@@ -2,12 +2,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.8.26">
+<meta name="generator" content="quarto-1.8.25">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Welcome – INAB In-House Analysis</title>
+<title>How to run SARS-Cov-2 analysis in the computational infrastructure of INAB – INAB In-House Analysis</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,27 +20,62 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/quarto-nav/headroom.min.js"></script>
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="site_libs/quarto-search/fuse.min.js"></script>
-<script src="site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="./">
-<script src="site_libs/quarto-html/quarto.js" type="module"></script>
-<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-587c61ba64f3a5504c4d52d930310e48.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-9fe5468cdd8f08779a8ab468245e8356.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-9fe5468cdd8f08779a8ab468245e8356.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -79,7 +114,9 @@ ul.task-list li input[type="checkbox"] {
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a class="navbar-brand" href="./index.html">
+    <a href="../index.html" class="navbar-brand navbar-brand-logo">
+    </a>
+    <a class="navbar-brand" href="../index.html">
     <span class="navbar-title">INAB In-House Analysis</span>
     </a>
   </div>
@@ -90,7 +127,7 @@ ul.task-list li input[type="checkbox"] {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link active" href="./index.html" aria-current="page"> 
+    <a class="nav-link" href="../index.html"> 
 <span class="menu-text">Home</span></a>
   </li>  
   <li class="nav-item dropdown ">
@@ -99,11 +136,11 @@ ul.task-list li input[type="checkbox"] {
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-data-analytics">    
         <li>
-    <a class="dropdown-item" href="./qmd/data_cleaning.html">
+    <a class="dropdown-item" href="../qmd/data_cleaning.html">
  <span class="dropdown-text">Data &amp; Metadata</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./qmd/unix.html">
+    <a class="dropdown-item" href="../qmd/unix.html">
  <span class="dropdown-text">Unix Commands</span></a>
   </li>  
     </ul>
@@ -114,35 +151,35 @@ ul.task-list li input[type="checkbox"] {
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-manuals-for-analysis">    
         <li>
-    <a class="dropdown-item" href="./qmd/bcl_convert.html">
+    <a class="dropdown-item" href="../qmd/bcl_convert.html">
  <span class="dropdown-text">bcl convert</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./qmd/bases2fastq.html">
+    <a class="dropdown-item" href="../qmd/bases2fastq.html">
  <span class="dropdown-text">bases2fastq</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./qmd/fastqc.html">
+    <a class="dropdown-item" href="../qmd/fastqc.html">
  <span class="dropdown-text">fastqc</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./qmd/merge_lanes.html">
+    <a class="dropdown-item" href="../qmd/merge_lanes.html">
  <span class="dropdown-text">Merge lanes</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./qmd/rnaseq.html">
+    <a class="dropdown-item" href="../qmd/rnaseq.html">
  <span class="dropdown-text">RNAseq analysis</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./qmd/ena_deposit.html">
+    <a class="dropdown-item" href="../qmd/ena_deposit.html">
  <span class="dropdown-text">ENA</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./qmd/ergo.html">
+    <a class="dropdown-item" href="../qmd/ergo.html">
  <span class="dropdown-text">ERGO-ii</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./qmd/sars.html">
+    <a class="dropdown-item" href="../qmd/sars.html">
  <span class="dropdown-text">SARS-Cov-2</span></a>
   </li>  
     </ul>
@@ -163,11 +200,19 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a></li>
-  <li><a href="#getting-started" id="toc-getting-started" class="nav-link" data-scroll-target="#getting-started">Getting Started</a></li>
-  <li><a href="#your-roadmap" id="toc-your-roadmap" class="nav-link" data-scroll-target="#your-roadmap">Your Roadmap</a></li>
-  <li><a href="#contributing" id="toc-contributing" class="nav-link" data-scroll-target="#contributing">Contributing</a></li>
-  <li><a href="#authors" id="toc-authors" class="nav-link" data-scroll-target="#authors">Authors</a></li>
+  <li><a href="#steps-to-run-the-analysis" id="toc-steps-to-run-the-analysis" class="nav-link active" data-scroll-target="#steps-to-run-the-analysis">Steps to run the analysis</a>
+  <ul class="collapse">
+  <li><a href="#log-in-to-the-appropriate-server" id="toc-log-in-to-the-appropriate-server" class="nav-link" data-scroll-target="#log-in-to-the-appropriate-server">1. Log in to the appropriate server</a></li>
+  <li><a href="#identify-where-your-ngs-results-.fastq-files-are-located" id="toc-identify-where-your-ngs-results-.fastq-files-are-located" class="nav-link" data-scroll-target="#identify-where-your-ngs-results-.fastq-files-are-located">2 . Identify where your NGS results (.fastq files) are located</a></li>
+  <li><a href="#move-to-the-your-working-directory" id="toc-move-to-the-your-working-directory" class="nav-link" data-scroll-target="#move-to-the-your-working-directory">3. Move to the your working directory</a></li>
+  <li><a href="#create-a-new-analysis-directory" id="toc-create-a-new-analysis-directory" class="nav-link" data-scroll-target="#create-a-new-analysis-directory">4. Create a new analysis directory</a></li>
+  <li><a href="#copy-scripts-to-your-analysis-directory" id="toc-copy-scripts-to-your-analysis-directory" class="nav-link" data-scroll-target="#copy-scripts-to-your-analysis-directory">5. Copy scripts to your analysis directory</a></li>
+  <li><a href="#move-to-the-your-new-analysis-directory" id="toc-move-to-the-your-new-analysis-directory" class="nav-link" data-scroll-target="#move-to-the-your-new-analysis-directory">6. Move to the your new analysis directory</a></li>
+  <li><a href="#create-a-samplelist" id="toc-create-a-samplelist" class="nav-link" data-scroll-target="#create-a-samplelist">7. Create a SampleList</a></li>
+  <li><a href="#remove-samples-that-should-not-be-analyzed" id="toc-remove-samples-that-should-not-be-analyzed" class="nav-link" data-scroll-target="#remove-samples-that-should-not-be-analyzed">8. Remove samples that should not be analyzed</a></li>
+  <li><a href="#run-the-analysis" id="toc-run-the-analysis" class="nav-link" data-scroll-target="#run-the-analysis">9. Run the analysis</a></li>
+  <li><a href="#after-the-analysis-is-completed" id="toc-after-the-analysis-is-completed" class="nav-link" data-scroll-target="#after-the-analysis-is-completed">10. After the analysis is completed</a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
@@ -176,7 +221,7 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Welcome</h1>
+<h1 class="title">How to run SARS-Cov-2 analysis in the computational infrastructure of INAB</h1>
 </div>
 
 
@@ -193,42 +238,66 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p>Welcome to the <code>INAB In-House Analyses</code> guide.</p>
-<section id="introduction" class="level2">
-<h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
-<p>This page provides internal documentation for performing standard bioinformatics analyses at the lab, including setup, data preprocessing, and downstream workflows.</p>
-<blockquote class="blockquote">
-<p><strong>Note:</strong> This document is for internal use only.</p>
-</blockquote>
+<section id="steps-to-run-the-analysis" class="level2">
+<h2 class="anchored" data-anchor-id="steps-to-run-the-analysis">Steps to run the analysis</h2>
+<section id="log-in-to-the-appropriate-server" class="level3">
+<h3 class="anchored" data-anchor-id="log-in-to-the-appropriate-server">1. Log in to the appropriate server</h3>
+<p>o 160.40.71.4</p>
 </section>
-<section id="getting-started" class="level2">
-<h2 class="anchored" data-anchor-id="getting-started">Getting Started</h2>
-<p>The goal of this guide is to bridge the gap between wet-lab experiments and dry-lab results.</p>
-<p>You will learn:</p>
-<ul>
-<li>how to prepare your data correctly</li>
-<li>how to use basic Unix commands</li>
-<li>how to run analyses in the computational infrastructure of INAB</li>
-</ul>
+<section id="identify-where-your-ngs-results-.fastq-files-are-located" class="level3">
+<h3 class="anchored" data-anchor-id="identify-where-your-ngs-results-.fastq-files-are-located">2 . Identify where your NGS results (.fastq files) are located</h3>
+<p>o e.g., /mnt/new_home/stamatopoulos_research/SARS_2025_05_21</p>
 </section>
-<section id="your-roadmap" class="level2">
-<h2 class="anchored" data-anchor-id="your-roadmap">Your Roadmap</h2>
-<ol type="1">
-<li><a href="./qmd/data_cleaning.html"><strong>Data &amp; Metadata</strong></a><strong>:</strong> Learn the “Golden Rules” of file naming and organization.</li>
-<li><a href="./qmd/unix.html"><strong>Unix Commands</strong></a><strong>:</strong> Basic commands to navigate folders, inspect files, and prepare data for analysis.</li>
-<li><a href="qmd/analysis.qmd"><strong>Analysis Pipelines</strong></a><strong>:</strong> Standardized workflows for INAB projects.</li>
-</ol>
+<section id="move-to-the-your-working-directory" class="level3">
+<h3 class="anchored" data-anchor-id="move-to-the-your-working-directory">3. Move to the your working directory</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> /work/covid19-runs</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
-<section id="contributing" class="level2">
-<h2 class="anchored" data-anchor-id="contributing">Contributing</h2>
-<p>Your input is invaluable - whether it’s suggesting a new chart/analysis or reporting a bug, we welcome and greatly appreciate your feedback!</p>
-<p>Feel free to open a <a href="https://github.com/natanast/immunovisual/issues">GitHub issue</a> or contact us via <code>inab.bioinformatics@lists.certh.gr</code>.</p>
+<section id="create-a-new-analysis-directory" class="level3">
+<h3 class="anchored" data-anchor-id="create-a-new-analysis-directory">4. Create a new analysis directory</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> run-2025-10-23</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
-<section id="authors" class="level2">
-<h2 class="anchored" data-anchor-id="authors">Authors</h2>
-<p><svg aria-hidden="true" role="img" viewbox="0 0 496 512" style="height:1em;width:0.97em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:black;overflow:visible;position:relative;"><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"></path></svg> <a href="https://github.com/natanast">Natasa Anastasiadou</a> <svg aria-hidden="true" role="img" viewbox="0 0 496 512" style="height:1em;width:0.97em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:black;overflow:visible;position:relative;"><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"></path></svg> <a href="https://github.com/npechl">Nikos Pechlivanis</a> <svg aria-hidden="true" role="img" viewbox="0 0 496 512" style="height:1em;width:0.97em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:black;overflow:visible;position:relative;"><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"></path></svg> <a href="https://github.com/Sofokli5">Sofoklis Keisaris</a></p>
+<section id="copy-scripts-to-your-analysis-directory" class="level3">
+<h3 class="anchored" data-anchor-id="copy-scripts-to-your-analysis-directory">5. Copy scripts to your analysis directory</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cp</span> <span class="pp">*</span>.sh run-2025-10-23</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cp</span> <span class="pp">*</span>.R run-2025-10-23</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="move-to-the-your-new-analysis-directory" class="level3">
+<h3 class="anchored" data-anchor-id="move-to-the-your-new-analysis-directory">6. Move to the your new analysis directory</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">run-2025-10-23</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="create-a-samplelist" class="level3">
+<h3 class="anchored" data-anchor-id="create-a-samplelist">7. Create a SampleList</h3>
+<p>You have to <strong>update</strong> with the right path to your <strong>fastq</strong> <strong>files.</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> <span class="at">-la</span> /mnt/new_home/stamatopoulos_research/SARS_2025_05_21 <span class="kw">|</span> <span class="fu">awk</span> <span class="st">'{print $9}'</span> <span class="kw">|</span> <span class="fu">awk</span> <span class="at">-F</span> <span class="st">"_R"</span> <span class="st">'{print $1}'</span> <span class="kw">|</span> <span class="fu">sort</span> <span class="kw">|</span> <span class="fu">uniq</span> <span class="op">&gt;</span> SampleList</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="remove-samples-that-should-not-be-analyzed" class="level3">
+<h3 class="anchored" data-anchor-id="remove-samples-that-should-not-be-analyzed">8. Remove samples that should not be analyzed</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">nano</span> SampleList</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>In order to <strong>edit</strong> the SampleList use the following:</p>
+<p>o <code>Delete button</code>: Removes one letter</p>
+<p>o <code>Ctrl + k</code>: Removes a whole row</p>
+<p>o <code>Ctrl + o and Enter</code>: Saves the modified SampleList</p>
+<p>o <code>Ctrl + x</code>: Exits and returns to the terminal</p>
+</section>
+<section id="run-the-analysis" class="level3">
+<h3 class="anchored" data-anchor-id="run-the-analysis">9. Run the analysis</h3>
+<p>You have to <strong>update</strong> with the right path.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">nohup</span> bash runCOVID19.sh <span class="dt">\</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>/mnt/new_home/stamatopoulos_research/SARS_2025_05_21 <span class="dt">\</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>SampleList <span class="dt">\</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>/work/covid19-runs/ref/NC_045512.2.fasta <span class="dt">\</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="kw">&amp;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="after-the-analysis-is-completed" class="level3">
+<h3 class="anchored" data-anchor-id="after-the-analysis-is-completed">10. After the analysis is completed</h3>
+<p>Move your folder from <strong>/work</strong> to <strong>/mnt/new_home</strong>.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> ..</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rsync</span> <span class="at">-r</span> <span class="dt">\</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>SARS_2025_05_21 <span class="dt">\</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>/mnt/new_home/stamatopoulos_research</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->

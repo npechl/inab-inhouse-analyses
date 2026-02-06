@@ -30,6 +30,8 @@ website:
             href: qmd/ena_deposit.qmd
           - text: ERGO-ii
             href: qmd/ergo.qmd
+          - text: SARS-Cov-2
+            href: qmd/sars.qmd
         
         
             
@@ -43,3 +45,4 @@ format:
     theme: [morph, sass/theme-light.scss]
     code-block-bg: true
     code-block-border-left: "#2b5769"
+    toc: true
