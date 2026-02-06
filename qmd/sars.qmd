@@ -1,0 +1,92 @@
+---
+title: "How to run SARS-Cov-2 analysis in the computational infrastructure of INAB"
+execute:
+  echo: false
+---
+
+## Steps to run the analysis
+
+### 1. Log in to the appropriate server
+
+o 160.40.71.4
+
+### 2 . Identify where your NGS results (.fastq files) are located
+
+o e.g., /mnt/new_home/stamatopoulos_research/SARS_2025_05_21
+
+### 3. Move to the your working directory
+
+``` bash
+cd /work/covid19-runs
+```
+
+### 4. Create a new analysis directory
+
+``` bash
+mkdir run-2025-10-23
+```
+
+### 5. Copy scripts to your analysis directory
+
+```bash 
+cp *.sh run-2025-10-23
+```
+```bash
+cp *.R run-2025-10-23
+```
+
+### 6. Move to the your new analysis directory
+
+``` bash
+run-2025-10-23
+```
+
+### 7. Create a SampleList
+
+You have to **update** with the right path to your **fastq** **files.**
+
+``` bash
+ls -la /mnt/new_home/stamatopoulos_research/SARS_2025_05_21 | awk '{print $9}' | awk -F "_R" '{print $1}' | sort | uniq > SampleList
+```
+
+### 8. Remove samples that should not be analyzed
+
+``` bash
+nano SampleList
+```
+
+In order to **edit** the SampleList use the following:
+
+o `Delete button`: Removes one letter
+
+o `Ctrl + k`: Removes a whole row
+
+o `Ctrl + o and Enter`: Saves the modified SampleList
+
+o `Ctrl + x`: Exits and returns to the terminal
+
+### 9. Run the analysis 
+
+You have to **update** with the right path.
+
+``` bash
+nohup bash runCOVID19.sh \
+/mnt/new_home/stamatopoulos_research/SARS_2025_05_21 \
+SampleList \
+/work/covid19-runs/ref/NC_045512.2.fasta \
+&
+```
+
+### 10. After the analysis is completed
+
+Move your folder from **/work** to **/mnt/new_home**.
+
+``` bash
+cd ..
+```
+
+``` bash
+rsync -r \
+SARS_2025_05_21 \
+/mnt/new_home/stamatopoulos_research
+```

@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>fastqc analysis – INAB In-House Analysis</title>
+<title>How to run SARS-Cov-2 analysis in the computational infrastructure of INAB – INAB In-House Analysis</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -200,9 +200,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#how-to-run-fastqc-in-the-computational-infrastructure-of-inab" id="toc-how-to-run-fastqc-in-the-computational-infrastructure-of-inab" class="nav-link active" data-scroll-target="#how-to-run-fastqc-in-the-computational-infrastructure-of-inab">How to run <strong>fastqc</strong> in the computational infrastructure of INAB</a>
+  <li><a href="#steps-to-run-the-analysis" id="toc-steps-to-run-the-analysis" class="nav-link active" data-scroll-target="#steps-to-run-the-analysis">Steps to run the analysis</a>
   <ul class="collapse">
-  <li><a href="#steps-to-run-fastqc-analysis" id="toc-steps-to-run-fastqc-analysis" class="nav-link" data-scroll-target="#steps-to-run-fastqc-analysis">Steps to run fastqc analysis:</a></li>
+  <li><a href="#log-in-to-the-appropriate-server" id="toc-log-in-to-the-appropriate-server" class="nav-link" data-scroll-target="#log-in-to-the-appropriate-server">1. Log in to the appropriate server</a></li>
+  <li><a href="#identify-where-your-ngs-results-.fastq-files-are-located" id="toc-identify-where-your-ngs-results-.fastq-files-are-located" class="nav-link" data-scroll-target="#identify-where-your-ngs-results-.fastq-files-are-located">2 . Identify where your NGS results (.fastq files) are located</a></li>
+  <li><a href="#move-to-the-your-working-directory" id="toc-move-to-the-your-working-directory" class="nav-link" data-scroll-target="#move-to-the-your-working-directory">3. Move to the your working directory</a></li>
+  <li><a href="#create-a-new-analysis-directory" id="toc-create-a-new-analysis-directory" class="nav-link" data-scroll-target="#create-a-new-analysis-directory">4. Create a new analysis directory</a></li>
+  <li><a href="#copy-scripts-to-your-analysis-directory" id="toc-copy-scripts-to-your-analysis-directory" class="nav-link" data-scroll-target="#copy-scripts-to-your-analysis-directory">5. Copy scripts to your analysis directory</a></li>
+  <li><a href="#move-to-the-your-new-analysis-directory" id="toc-move-to-the-your-new-analysis-directory" class="nav-link" data-scroll-target="#move-to-the-your-new-analysis-directory">6. Move to the your new analysis directory</a></li>
+  <li><a href="#create-a-samplelist" id="toc-create-a-samplelist" class="nav-link" data-scroll-target="#create-a-samplelist">7. Create a SampleList</a></li>
+  <li><a href="#remove-samples-that-should-not-be-analyzed" id="toc-remove-samples-that-should-not-be-analyzed" class="nav-link" data-scroll-target="#remove-samples-that-should-not-be-analyzed">8. Remove samples that should not be analyzed</a></li>
+  <li><a href="#run-the-analysis" id="toc-run-the-analysis" class="nav-link" data-scroll-target="#run-the-analysis">9. Run the analysis</a></li>
+  <li><a href="#after-the-analysis-is-completed" id="toc-after-the-analysis-is-completed" class="nav-link" data-scroll-target="#after-the-analysis-is-completed">10. After the analysis is completed</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -212,7 +221,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">fastqc analysis</h1>
+<h1 class="title">How to run SARS-Cov-2 analysis in the computational infrastructure of INAB</h1>
 </div>
 
 
@@ -229,22 +238,63 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<section id="how-to-run-fastqc-in-the-computational-infrastructure-of-inab" class="level2">
-<h2 class="anchored" data-anchor-id="how-to-run-fastqc-in-the-computational-infrastructure-of-inab">How to run <strong>fastqc</strong> in the computational infrastructure of INAB</h2>
-<section id="steps-to-run-fastqc-analysis" class="level3">
-<h3 class="anchored" data-anchor-id="steps-to-run-fastqc-analysis">Steps to run fastqc analysis:</h3>
-<ol type="1">
-<li><p>Log in to the appropriate server:</p>
-<p>o 160.40.71.4</p></li>
-<li><p>Identify where your NGS results (.fastq files) are located:</p>
-<p>o e.g., /mnt/new_home/stamatopoulos_research/2025_05_21_ERIC_study</p></li>
-<li><p>Move to the precmed working directory:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> /work/precmed/varCall/</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div></li>
-<li><p>Create a new analysis directory:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> run-2025-05-22-fastqc</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div></li>
-<li><p>Run the fastqc (you have to update with the right <strong>path</strong> to your <strong>fastq files</strong>):</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">fastqc</span> /mnt/new_home/stamatopoulos_research/2025_05_21_ERIC_study/<span class="pp">*</span>.fastq.gz <span class="at">-o</span> run-2025-05-22-fastqc/</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div></li>
-</ol>
+<section id="steps-to-run-the-analysis" class="level2">
+<h2 class="anchored" data-anchor-id="steps-to-run-the-analysis">Steps to run the analysis</h2>
+<section id="log-in-to-the-appropriate-server" class="level3">
+<h3 class="anchored" data-anchor-id="log-in-to-the-appropriate-server">1. Log in to the appropriate server</h3>
+<p>o 160.40.71.4</p>
+</section>
+<section id="identify-where-your-ngs-results-.fastq-files-are-located" class="level3">
+<h3 class="anchored" data-anchor-id="identify-where-your-ngs-results-.fastq-files-are-located">2 . Identify where your NGS results (.fastq files) are located</h3>
+<p>o e.g., /mnt/new_home/stamatopoulos_research/SARS_2025_05_21</p>
+</section>
+<section id="move-to-the-your-working-directory" class="level3">
+<h3 class="anchored" data-anchor-id="move-to-the-your-working-directory">3. Move to the your working directory</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> /work/covid19-runs</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="create-a-new-analysis-directory" class="level3">
+<h3 class="anchored" data-anchor-id="create-a-new-analysis-directory">4. Create a new analysis directory</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> run-2025-10-23</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="copy-scripts-to-your-analysis-directory" class="level3">
+<h3 class="anchored" data-anchor-id="copy-scripts-to-your-analysis-directory">5. Copy scripts to your analysis directory</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cp</span> <span class="pp">*</span>.sh run-2025-10-23</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cp</span> <span class="pp">*</span>.R run-2025-10-23</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="move-to-the-your-new-analysis-directory" class="level3">
+<h3 class="anchored" data-anchor-id="move-to-the-your-new-analysis-directory">6. Move to the your new analysis directory</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">run-2025-10-23</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="create-a-samplelist" class="level3">
+<h3 class="anchored" data-anchor-id="create-a-samplelist">7. Create a SampleList</h3>
+<p>You have to <strong>update</strong> with the right path to your <strong>fastq</strong> <strong>files.</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> <span class="at">-la</span> /mnt/new_home/stamatopoulos_research/SARS_2025_05_21 <span class="kw">|</span> <span class="fu">awk</span> <span class="st">'{print $9}'</span> <span class="kw">|</span> <span class="fu">awk</span> <span class="at">-F</span> <span class="st">"_R"</span> <span class="st">'{print $1}'</span> <span class="kw">|</span> <span class="fu">sort</span> <span class="kw">|</span> <span class="fu">uniq</span> <span class="op">&gt;</span> SampleList</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="remove-samples-that-should-not-be-analyzed" class="level3">
+<h3 class="anchored" data-anchor-id="remove-samples-that-should-not-be-analyzed">8. Remove samples that should not be analyzed</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">nano</span> SampleList</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>In order to <strong>edit</strong> the SampleList use the following:</p>
+<p>o <code>Delete button</code>: Removes one letter</p>
+<p>o <code>Ctrl + k</code>: Removes a whole row</p>
+<p>o <code>Ctrl + o and Enter</code>: Saves the modified SampleList</p>
+<p>o <code>Ctrl + x</code>: Exits and returns to the terminal</p>
+</section>
+<section id="run-the-analysis" class="level3">
+<h3 class="anchored" data-anchor-id="run-the-analysis">9. Run the analysis</h3>
+<p>You have to <strong>update</strong> with the right path.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">nohup</span> bash runCOVID19.sh <span class="dt">\</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>/mnt/new_home/stamatopoulos_research/SARS_2025_05_21 <span class="dt">\</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>SampleList <span class="dt">\</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>/work/covid19-runs/ref/NC_045512.2.fasta <span class="dt">\</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="kw">&amp;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="after-the-analysis-is-completed" class="level3">
+<h3 class="anchored" data-anchor-id="after-the-analysis-is-completed">10. After the analysis is completed</h3>
+<p>Move your folder from <strong>/work</strong> to <strong>/mnt/new_home</strong>.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> ..</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rsync</span> <span class="at">-r</span> <span class="dt">\</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>SARS_2025_05_21 <span class="dt">\</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>/mnt/new_home/stamatopoulos_research</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 
 
 </section>
